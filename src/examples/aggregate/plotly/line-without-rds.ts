@@ -1,5 +1,4 @@
 import * as d3 from 'd3-fetch';
-import { DSVRowArray } from 'd3-dsv';
 import { PlotlyChartUtil } from 'shared/plotly/chart.util';
 
 const usData: { x: string[]; y: number[]; type: string; mode: string } = { x: [], y: [], type: 'scatter', mode: 'markers' };
@@ -23,7 +22,7 @@ async function getCountryData() {
 }
 
 async function processData(file: string) {
-  const data: DSVRowArray = await d3.csv(file);
+  const data = await d3.csv(file);
   // Grab all the date columns for later
   const dateKeys = Object.keys(data[0]).filter((key) => {
     // To get these headers, I have to manually inspect the CSV file. Sometimes these files
