@@ -1,0 +1,11 @@
+@mixin break($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin before($size) {
+  @media screen and (max-width: $size - 1px) {
+    @content;
+  }
+}

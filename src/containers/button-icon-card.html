@@ -1,0 +1,18 @@
+<div class="mdc-card {{ cardClass }} path-card mdc-elevation--z15 mdc-elevation-transition">
+  <img src="./assets/check_circle-black-18dp.svg" class="selected-icon">
+  <img src="{{ iconPath }}" class="icon-img">
+  <p class="mdc-typography--body1 primary-content">{{ text }}</p>
+  <div class="mdc-card__actions space-between">
+    <a class="mdc-button mdc-button--outlined mdc-card__action mdc-card__action--button"
+       href="{{ dataLink }}"
+       target="_blank">
+      <div class="mdc-button__ripple"></div>
+      <span class="mdc-button__label">The Data</span>
+      <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>
+    </a>
+    <button class="mdc-button mdc-button--raised mdc-card__action mdc-card__action--button {{ buttonClass }}">
+      <div class="mdc-button__ripple"></div>
+      <span class="mdc-button__label">{{ buttonText }}</span>
+    </button>
+  </div>
+</div>
