@@ -1,0 +1,150 @@
+@use "sass:map";
+@use "./mixins";
+@use "./colors";
+@use '@material/layout-grid/variables';
+$tablet-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, desktop)})' !default;
+$mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, tablet)})' !default;
+
+.rds-hero {
+  background-image: url('./assets/bg-squares.png'), url('./assets/bg-squares.png'),
+    linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-position: -410px -150px, calc(100% + 250px) calc(100% + 100px), center;
+  color: colors.$color-rds-white;
+  padding: 40px 0;
+  overflow-x: hidden;
+
+  /* Tablet or smaller */
+  @media #{$tablet-and-down} {
+    background-image: url('./assets/bg-squares.png'), linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
+    background-position: -550px -150px, calc(100%), center;
+    h1 {
+      font-size: 3rem;
+    }
+    h2 {
+      font-size: 1.75rem;
+    }
+    h4 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+    padding: 70px 0 50px;
+  }
+
+  .container {
+    max-width: 1660px;
+    min-width: 280px;
+    width: 87.5%;
+    margin: 0 auto;
+
+    @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    & > * {
+      @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+        width: 50%;
+      }
+    }
+  }
+
+  br {
+    display: none;
+    @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+      display: block;
+    }
+  }
+
+  .text {
+    text-align: center;
+
+    @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+      text-align: left;
+    }
+
+    @include mixins.break(map.get(variables.$breakpoints, 'desktop')) {
+      width: 40%;
+      margin-right: 5%;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    h2 {
+      font-weight: 500;
+      margin: 0 0 1rem;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    .txt-green {
+      color: colors.$color-rds-secondary-hover;
+
+      .txt-underline::after {
+        background-color: colors.$color-rds-secondary-hover;
+      }
+    }
+
+    .rds-button-secondary-small {
+      @media #{$mobile-and-down} {
+        width: 100%;
+      }
+    }
+
+    .rds-button-flat-white {
+      @media #{$mobile-and-down} {
+        margin-left: 0px;
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+
+    .rds-button {
+      display: block;
+
+      @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+        display: inline-block;
+      }
+    }
+  }
+
+  .image {
+    display: none;
+
+    @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+      display: block;
+    }
+
+    @include mixins.break(map.get(variables.$breakpoints, 'desktop')) {
+      flex: 1;
+    }
+
+    img {
+      margin: 2em 4em;
+      max-width: none;
+      max-height: 500px;
+    }
+  }
+
+  .rds-button {
+    width: 100%;
+    margin: 10px 0;
+
+    @include mixins.break(map.get(variables.$breakpoints, 'tablet')) {
+      width: auto;
+      margin: 0;
+      margin-right: 20px;
+    }
+  }
+}

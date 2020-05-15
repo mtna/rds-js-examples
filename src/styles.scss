@@ -1,0 +1,219 @@
+@use "sass:map";
+@use "./styles/colors";
+
+@use "@material/theme" with (
+  $primary: colors.$color-rds-blue,
+  $on-primary: colors.$color-rds-white
+);
+
+@use "@material/layout-grid/mdc-layout-grid";
+@use "@material/layout-grid/mixins" as mdc-mixins;
+@use '@material/layout-grid/variables';
+
+@use "@material/typography/mdc-typography";
+@use "@material/elevation/mdc-elevation";
+
+@use "@material/button/mdc-button";
+@use "@material/button";
+@use "@material/card";
+@use "@material/drawer/mdc-drawer";
+@use "@material/icon-button";
+@use "@material/list/mdc-list";
+@use "@material/menu/mdc-menu";
+@use "@material/menu-surface/mdc-menu-surface";
+@use "@material/select/mdc-select";
+@use "@material/top-app-bar/mdc-top-app-bar";
+
+@use "@material/tab-bar/mdc-tab-bar";
+@use "@material/tab-scroller/mdc-tab-scroller";
+@use "@material/tab-indicator/mdc-tab-indicator";
+@use "@material/tab/mdc-tab";
+
+@include icon-button.core-styles;
+
+@import './styles/hero';
+@import './styles/story';
+@import './styles/nav-bar';
+
+@include card.core-styles;
+
+$large: 1440px;
+
+$blue-gradient: linear-gradient(303.65deg, #378dc5 2.04%, #{colors.$color-rds-blue-2} 94.79%);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: rgb(242, 242, 242);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Typography */
+$h1-fontsize: 6rem;
+$h2-fontsize: 3.75rem;
+$h3-fontsize: 3rem;
+$h4-fontsize: 2.125rem;
+$h5-fontsize: 1.5rem;
+$h6-fontsize: 1.25rem;
+h1 {
+  margin: ($h1-fontsize / 1.5) 0 ($h1-fontsize / 2.5) 0;
+}
+h2 {
+  margin: ($h2-fontsize / 1.5) 0 ($h2-fontsize / 2.5) 0;
+}
+h3 {
+  margin: ($h3-fontsize / 1.5) 0 ($h3-fontsize / 2.5) 0;
+}
+h4 {
+  margin: ($h4-fontsize / 1.5) 0 ($h4-fontsize / 2.5) 0;
+}
+h5 {
+  margin: ($h5-fontsize / 1.5) 0 ($h5-fontsize / 2.5) 0;
+}
+h6 {
+  margin: ($h6-fontsize / 1.5) 0 ($h6-fontsize / 2.5) 0;
+}
+
+.txt-underline {
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+  }
+}
+
+.text-blue {
+  color: colors.$color-rds-blue;
+}
+
+.text-green {
+  color: colors.$color-rds-secondary;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.check-list {
+  list-style: none;
+  .material-icons {
+    color: colors.$color-rds-secondary;
+    font-size: 1.5rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+  li {
+    display: flex;
+    line-height: 1.5rem;
+    margin: 1rem 0;
+  }
+}
+
+/** END TYPOGRPHY **/
+
+.container {
+  display: block;
+  max-width: $large;
+  min-width: 280px;
+  width: 87.5%;
+  margin: 0 auto;
+}
+
+.white-raised-button {
+  --mdc-theme-primary: #fff;
+  --mdc-theme-on-primary: #000;
+
+  @include button.ink-color(#000);
+}
+.white-outlined-button {
+  --mdc-theme-primary: #000;
+  --mdc-theme-on-primary: #fff;
+
+  @include button.ink-color(#fff);
+  @include button.outline-color(#fff);
+}
+
+/* Main Body */
+.explorer-tabengine {
+  background-image: url('./assets/cta-background-opaque-0.1.png'), url('./assets/cta-background-opaque-0.1.png'), $blue-gradient;
+  background-repeat: no-repeat;
+  background-position: bottom -200px left -300px, top -200px right -300px, top left;
+  color: #ffffff;
+
+  .rds-text {
+    text-align: center;
+
+    p {
+      font-size: 20px;
+      padding: 0 32px;
+    }
+  }
+
+  .rds-spacer {
+    display: block;
+    height: 170px;
+    position: relative;
+    width: 2px;
+    &::before {
+      content: '';
+      background-color: #00558c;
+      height: 170px;
+      left: 0;
+      position: absolute;
+      transform: translateY(-50%);
+      top: 50%;
+      width: 2px;
+    }
+  }
+}
+
+.chart-section {
+  .tab-section {
+    > *:not(.mdc-tab-bar) {
+      margin-top: 32px;
+    }
+    .tab-contents {
+      /* Subtract height of tab bar and margin */
+      height: calc(100% - 80px);
+      min-height: 400px;
+      width: 100%;
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+}
+
+.white-section-container {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  background: #fff;
+}
+
+.section-divider {
+  height: 64px;
+  background: $blue-gradient, colors.$color-rds-blue-2;
+  border: none;
+  margin: 0;
+}
+
+@media only screen and (max-width : #{map.get(variables.$breakpoints, desktop)}) {
+  .bar-chart .tab-section {
+    @include mdc-mixins.cell-order(2);
+  }
+}
