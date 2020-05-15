@@ -31,7 +31,7 @@
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
     "start": "parcel src/index.html -p 4200",
-    "build": "parcel build src/index.html --no-source-maps --experimental-scope-hoisting",
+    "build": "parcel build src/index.html --no-source-maps --experimental-scope-hoisting --public-url ./",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
