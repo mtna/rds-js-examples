@@ -16,8 +16,8 @@
 Be sure to checkout the sdk source code and documentation.
 
 ## References
-[RDS JavaScript SDK](https://github.com/mtna/rds-js) | [RDS API Documentation](https://covid19.richdataservices.com/rds/swagger/) | [Contributing](CONTRIBUTING.md) | [Developer Documentation](DEVELOPER.md) | [Changelog](CHANGELOG.md)
-|---|---|---|---|---|
+[RDS JavaScript SDK](https://github.com/mtna/rds-js) | [RDS API Documentation](https://covid19.richdataservices.com/rds/swagger/) | [RDS](https://www.richdataservices.com/) | [Contributing](CONTRIBUTING.md) | [Developer Documentation](DEVELOPER.md) | [Changelog](CHANGELOG.md)
+|---|---|---|---|---|---|
 
 ## Quick start
 
