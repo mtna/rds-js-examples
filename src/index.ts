@@ -2,26 +2,6 @@
 import 'regenerator-runtime/runtime';
 
 import { MDCSelect } from '@material/select';
-import { StackBlitzUtil } from 'shared/stackblitz/index';
-
-import {
-  AMCHARTS_HEAT_WITH_RDS,
-  AMCHARTS_HEAT_WITHOUT_RDS,
-  AMCHARTS_LINE_WITH_RDS,
-  AMCHARTS_LINE_WITHOUT_RDS,
-  PLOTLY_SCATTER_WITH_RDS,
-  PLOTLY_SCATTER_WITHOUT_RDS,
-  PLOTLY_HEAT_WITH_RDS,
-  PLOTLY_HEAT_WITHOUT_RDS,
-  GCHARTS_LINE_WITH_RDS,
-  GCHARTS_LINE_WITHOUT_RDS,
-} from './examples/all-stackblitz-example-configs';
-import { AMCHARTS_LINE_SERIES } from 'shared/amcharts/amcharts-config';
-import { AmChartsLineUtil } from 'shared/amcharts/line-chart.util';
-import { AmChartsHeatUtil } from 'shared/amcharts/heat-map.util';
-import { PlotlyChartUtil } from 'shared/plotly/chart.util';
-import { ChartType } from 'shared/models/chart-type';
-import { GoogleChartLineUtil } from 'shared/gcharts/line-chart.util';
 import {
   AmchartsDataSet,
   GchartsDataSet,
@@ -32,10 +12,29 @@ import {
   RdsServer,
   RdsTabulateParameters,
 } from '@rds/sdk';
-
-import { ButtonUtil, LINE_CHART_CONFIG, BAR_CHART_CONFIG } from 'shared/button/button-util';
-import { NavBarUtil } from './shared/nav-bar-util';
+import { AMCHARTS_LINE_SERIES } from 'shared/amcharts/amcharts-config';
+import { AmChartsHeatUtil } from 'shared/amcharts/heat-map.util';
+import { AmChartsLineUtil } from 'shared/amcharts/line-chart.util';
+import { BAR_CHART_CONFIG, ButtonUtil, LINE_CHART_CONFIG } from 'shared/button/button-util';
+import { GoogleChartLineUtil } from 'shared/gcharts/line-chart.util';
+import { ChartType } from 'shared/models/chart-type';
+import { PlotlyChartUtil } from 'shared/plotly/chart.util';
+import { StackBlitzUtil } from 'shared/stackblitz/index';
 import { TabBarUtil } from 'shared/tab-bar-util';
+
+import {
+  AMCHARTS_HEAT_WITH_RDS,
+  AMCHARTS_HEAT_WITHOUT_RDS,
+  AMCHARTS_LINE_WITH_RDS,
+  AMCHARTS_LINE_WITHOUT_RDS,
+  GCHARTS_LINE_WITH_RDS,
+  GCHARTS_LINE_WITHOUT_RDS,
+  PLOTLY_HEAT_WITH_RDS,
+  PLOTLY_HEAT_WITHOUT_RDS,
+  PLOTLY_SCATTER_WITH_RDS,
+  PLOTLY_SCATTER_WITHOUT_RDS,
+} from './examples/all-stackblitz-example-configs';
+import { NavBarUtil } from './shared/nav-bar-util';
 
 // Initialize the navbar and nav drawer
 NavBarUtil.initializeNavBar();
@@ -108,8 +107,8 @@ RdsQueryController.tabulate<AmchartsDataSet>(CATALOG_ID, TABULATE_DATA_PRODUCT_I
 );
 
 // initialize the tab bars and set up listeners
-TabBarUtil.initializeTabBar(document.querySelector('.line-chart'));
-TabBarUtil.initializeTabBar(document.querySelector('.bar-chart'));
+const AGGRAGATE_TAB_BAR = TabBarUtil.initializeTabBar(document.querySelector('.line-chart'));
+const RECORD_TAB_BAR = TabBarUtil.initializeTabBar(document.querySelector('.bar-chart'));
 
 ButtonUtil.initializeButton(LINE_CHART_CONFIG);
 ButtonUtil.initializeButton(BAR_CHART_CONFIG);
@@ -120,6 +119,9 @@ let currentAggregateChartType: ChartType = 'AMCHARTS';
 if (aggregateChartTypeSelectElement) {
   const aggregateChartTypeSelect = new MDCSelect(aggregateChartTypeSelectElement);
   aggregateChartTypeSelect.listen('MDCSelect:change', () => {
+    // Go back to the first tab
+    AGGRAGATE_TAB_BAR.activateTab(0);
+
     // Dispose previous chart
     switch (currentAggregateChartType) {
       case 'AMCHARTS':
@@ -181,6 +183,9 @@ let currentRecordChartType: ChartType = 'AMCHARTS';
 if (recordChartTypeSelectElement) {
   const recordChartTypeSelect = new MDCSelect(recordChartTypeSelectElement);
   recordChartTypeSelect.listen('MDCSelect:change', () => {
+    // Go back to the first tab
+    RECORD_TAB_BAR.activateTab(0);
+
     // Dispose previous chart
     switch (currentRecordChartType) {
       case 'AMCHARTS':

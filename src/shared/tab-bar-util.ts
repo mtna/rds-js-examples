@@ -1,5 +1,5 @@
-import { MDCTabBar } from '@material/tab-bar';
 import { MDCSelectEvent } from '@material/select';
+import { MDCTabBar } from '@material/tab-bar';
 
 export class TabBarUtil {
   static TAB_CONTENTS_SELECTOR = '.tab-contents';
@@ -9,8 +9,9 @@ export class TabBarUtil {
    * Initialize the MDCTabBar, set up the even handlers
    * to hide inactive tab contents and show active tab contents.
    * @param tabsContainer A parent element of the MDCTabBar and tab contents
+   * @returns the MDCTabBar created
    */
-  static initializeTabBar(tabsContainer: Element | null) {
+  static initializeTabBar(tabsContainer: Element | null): MDCTabBar {
     if (!tabsContainer) {
       throw new Error('[TabBarUtil] container is null, could not initialize');
     }
@@ -30,5 +31,6 @@ export class TabBarUtil {
       const contentElements = tabsContainer.querySelectorAll(this.TAB_CONTENTS_SELECTOR);
       contentElements[event.detail.index].classList.add(this.ACTIVE_TAB_CONTENTS_CLASS_NAME);
     });
+    return tabBar;
   }
 }
