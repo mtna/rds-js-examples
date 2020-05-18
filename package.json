@@ -42,7 +42,6 @@
     "precommit": "lint-staged",
     "travis-deploy-once": "travis-deploy-once --pro",
     "prepush": "npm run test:prod && npm run build",
-    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -112,6 +111,11 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "jest": {
