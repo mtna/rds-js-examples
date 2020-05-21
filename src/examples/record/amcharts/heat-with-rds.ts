@@ -1,5 +1,5 @@
+import { AmchartsDataSet, HttpResponse, RdsQueryController, RdsServer, RdsTabulateParameters } from '@rds/sdk';
 import { AmChartsHeatUtil } from 'shared/amcharts/heat-map.util';
-import { RdsServer, RdsQueryController, HttpResponse, RdsTabulateParameters, AmchartsDataSet } from '@rds/sdk';
 
 // Initialize the RDS Server information,
 // must be called once at initalization.
@@ -7,8 +7,8 @@ import { RdsServer, RdsQueryController, HttpResponse, RdsTabulateParameters, Amc
 // to point at any host RDS API
 RdsServer.init();
 
-const CATALOG_ID = 'covid19';
-const DATA_PRODUCT_ID = 'ca_statcan';
+const CATALOG_ID = 'ca';
+const DATA_PRODUCT_ID = 'ca_statcan_cases';
 const PARAMS: RdsTabulateParameters = {
   dims: 'gender,age_group',
   measure: 'COUNT:COUNT(*)',

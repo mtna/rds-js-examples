@@ -1,4 +1,4 @@
-import { RdsServer, RdsQueryController, HttpResponse, RdsTabulateParameters, PlotlyDataSet } from '@rds/sdk';
+import { HttpResponse, PlotlyDataSet, RdsQueryController, RdsServer, RdsTabulateParameters } from '@rds/sdk';
 import { PlotlyChartUtil } from 'shared/plotly/chart.util';
 
 // Initialize the RDS Server information,
@@ -7,8 +7,8 @@ import { PlotlyChartUtil } from 'shared/plotly/chart.util';
 // to point at any host RDS API
 RdsServer.init();
 
-const CATALOG_ID = 'covid19';
-const DATA_PRODUCT_ID = 'ca_statcan';
+const CATALOG_ID = 'ca';
+const DATA_PRODUCT_ID = 'ca_statcan_cases';
 const PARAMS: RdsTabulateParameters = {
   dims: 'gender,age_group',
   measure: 'COUNT:COUNT(*)',

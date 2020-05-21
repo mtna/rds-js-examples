@@ -1,4 +1,4 @@
-import { RdsServer, RdsSelectParameters, RdsQueryController, HttpResponse, GchartsDataSet } from '@rds/sdk';
+import { GchartsDataSet, HttpResponse, RdsQueryController, RdsSelectParameters, RdsServer } from '@rds/sdk';
 import { GoogleChartLineUtil } from 'shared/gcharts/line-chart.util';
 
 // Initialize the RDS Server information,
@@ -7,8 +7,8 @@ import { GoogleChartLineUtil } from 'shared/gcharts/line-chart.util';
 // to point at any host RDS API
 RdsServer.init();
 
-const CATALOG_ID = 'covid19';
-const DATA_PRODUCT_ID = 'us_jhu_ccse_country';
+const CATALOG_ID = 'int';
+const DATA_PRODUCT_ID = 'jhu_country';
 const PARAMS: RdsSelectParameters = {
   cols: 'date_stamp,cnt_confirmed,cnt_death,cnt_recovered',
   where: '(iso3166_1=US)',
