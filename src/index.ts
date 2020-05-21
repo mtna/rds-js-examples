@@ -1,3 +1,4 @@
+/* Need for async/await, see https://github.com/parcel-bundler/parcel/issues/3375 */
 import 'regenerator-runtime/runtime';
 
 import { MDCSelect } from '@material/select';
@@ -6,10 +7,11 @@ import {
   GchartsDataSet,
   HttpResponse,
   PlotlyDataSet,
-  RdsQueryController,
   RdsSelectParameters,
   RdsServer,
   RdsTabulateParameters,
+  RdsCatalog,
+  RdsDataProduct,
 } from '@rds/sdk';
 import { AMCHARTS_LINE_SERIES } from 'shared/amcharts/amcharts-config';
 import { AmChartsHeatUtil } from 'shared/amcharts/heat-map.util';
@@ -35,15 +37,44 @@ import {
 } from './examples/all-stackblitz-example-configs';
 import { NavBarUtil } from './shared/nav-bar-util';
 
-/* Need for async/await, see https://github.com/parcel-bundler/parcel/issues/3375 */
 // Initialize the navbar and nav drawer
 NavBarUtil.initializeNavBar();
 
-// Initialize the RDS Server information,
-// must be called once at initalization.
-// We are using the defaults, but it can be configured
-// to point at any host RDS API
-RdsServer.init();
+//#region RDS SDK SETUP
+
+// Initialize an RDS Server with covid data.
+const covidServer = new RdsServer('https://covid19.richdataservices.com/rds');
+
+// Initialize the international catalog
+const intCatalog = new RdsCatalog(covidServer, 'int');
+// Initialize the Canada catalog
+const canadaCatalog = new RdsCatalog(covidServer, 'ca');
+
+// Initialize the John Hopkins Country data product (aggregate data)
+const aggregateDataProduct = new RdsDataProduct(intCatalog, 'jhu_country');
+// Initialize the Canadian confirmed cases data product (record level data)
+const recordLevelDataProduct = new RdsDataProduct(canadaCatalog, 'ca_statcan_cases');
+
+/** Select parameters for aggregate data examples */
+const AGGREGATE_EXAMPLE_PARAMS: RdsSelectParameters = {
+  cols: 'date_stamp,cnt_confirmed,cnt_death,cnt_recovered',
+  where: '(iso3166_1=US)',
+  metadata: true,
+  limit: 5000,
+};
+
+/** Tabulation parameters for record level data examples */
+const RECORD_EXAMPLE_PARAMS: RdsTabulateParameters = {
+  dims: 'gender,age_group',
+  measure: 'COUNT:COUNT(*)',
+  metadata: true,
+  totals: true,
+  inject: true,
+  orderby: 'gender ASC, age_group DESC',
+};
+//#endregion RDS SDK SETUP
+
+//#region ELEMENT IDS
 
 /** ID of the element to embed the chart to show aggregated data */
 const AGGREGATE_CHART_ELEMENT_ID = 'line-chart-div';
@@ -59,25 +90,7 @@ const RECORD_WITH_RDS_CODE_ELEMENT_ID = 'bar-stackblitz';
 /** ID of the element to embed the stackblitz to show the record level data without RDS example code */
 const RECORD_WITHOUT_RDS_CODE_ELEMENT_ID = 'bar-compare-stackblitz';
 
-const AGGREGATE_CATALOG_ID = 'int';
-const AGGREGATE_DATA_PRODUCT_ID = 'jhu_country';
-const AGGREGATE_EXAMPLE_PARAMS: RdsSelectParameters = {
-  cols: 'date_stamp,cnt_confirmed,cnt_death,cnt_recovered',
-  where: '(iso3166_1=US)',
-  metadata: true,
-  limit: 5000,
-};
-
-const RECORD_CATALOG_ID = 'ca';
-const RECORD_DATA_PRODUCT_ID = 'ca_statcan_cases';
-const RECORD_EXAMPLE_PARAMS: RdsTabulateParameters = {
-  dims: 'gender,age_group',
-  measure: 'COUNT:COUNT(*)',
-  metadata: true,
-  totals: true,
-  inject: true,
-  orderby: 'gender ASC, age_group DESC',
-};
+//#endregion ELEMENT IDS
 
 // Embed inital AmChart StackBlitz examples
 StackBlitzUtil.embed(AGGREGATE_WITH_RDS_CODE_ELEMENT_ID, AMCHARTS_LINE_WITH_RDS);
@@ -86,7 +99,7 @@ StackBlitzUtil.embed(RECORD_WITH_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITH_RDS);
 StackBlitzUtil.embed(RECORD_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITHOUT_RDS);
 
 // Initial chart examples
-RdsQueryController.select<AmchartsDataSet>(AGGREGATE_CATALOG_ID, AGGREGATE_DATA_PRODUCT_ID, {
+aggregateDataProduct.select<AmchartsDataSet>({
   ...AGGREGATE_EXAMPLE_PARAMS,
   format: 'amcharts',
 }).then((res: HttpResponse<AmchartsDataSet>) =>
@@ -98,7 +111,7 @@ RdsQueryController.select<AmchartsDataSet>(AGGREGATE_CATALOG_ID, AGGREGATE_DATA_
     yTitle: 'Total Cases for U.S.',
   })
 );
-RdsQueryController.tabulate<AmchartsDataSet>(RECORD_CATALOG_ID, RECORD_DATA_PRODUCT_ID, {
+recordLevelDataProduct.tabulate<AmchartsDataSet>({
   ...RECORD_EXAMPLE_PARAMS,
   format: 'amcharts',
 }).then((res: HttpResponse<AmchartsDataSet>) =>
@@ -146,7 +159,7 @@ if (aggregateChartTypeSelectElement) {
     // Update example chart and embedded stackblitzes
     switch (currentAggregateChartType) {
       case 'AMCHARTS':
-        RdsQueryController.select<AmchartsDataSet>(AGGREGATE_CATALOG_ID, AGGREGATE_DATA_PRODUCT_ID, {
+        aggregateDataProduct.select<AmchartsDataSet>({
           ...AGGREGATE_EXAMPLE_PARAMS,
           format: 'amcharts',
         }).then((res: HttpResponse<AmchartsDataSet>) =>
@@ -162,7 +175,7 @@ if (aggregateChartTypeSelectElement) {
         StackBlitzUtil.embed(AGGREGATE_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_LINE_WITHOUT_RDS);
         break;
       case 'GCHARTS':
-        RdsQueryController.select<GchartsDataSet>(AGGREGATE_CATALOG_ID, AGGREGATE_DATA_PRODUCT_ID, {
+        aggregateDataProduct.select<GchartsDataSet>({
           ...AGGREGATE_EXAMPLE_PARAMS,
           format: 'gcharts',
         }).then((res: HttpResponse<GchartsDataSet>) =>
@@ -176,7 +189,7 @@ if (aggregateChartTypeSelectElement) {
         StackBlitzUtil.embed(AGGREGATE_WITHOUT_RDS_CODE_ELEMENT_ID, GCHARTS_LINE_WITHOUT_RDS);
         break;
       case 'PLOTLY':
-        RdsQueryController.select<PlotlyDataSet>(AGGREGATE_CATALOG_ID, AGGREGATE_DATA_PRODUCT_ID, {
+        aggregateDataProduct.select<PlotlyDataSet>({
           ...AGGREGATE_EXAMPLE_PARAMS,
           format: 'plotly_scatter',
         }).then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(AGGREGATE_CHART_ELEMENT_ID, res?.parsedBody));
@@ -211,7 +224,7 @@ if (recordChartTypeSelectElement) {
     // Update embedded stackblitz
     switch (currentRecordChartType) {
       case 'AMCHARTS':
-        RdsQueryController.tabulate<AmchartsDataSet>(RECORD_CATALOG_ID, RECORD_DATA_PRODUCT_ID, {
+        recordLevelDataProduct.tabulate<AmchartsDataSet>({
           ...RECORD_EXAMPLE_PARAMS,
           format: 'amcharts',
         }).then((res: HttpResponse<AmchartsDataSet>) => {
@@ -227,7 +240,7 @@ if (recordChartTypeSelectElement) {
         StackBlitzUtil.embed(RECORD_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITHOUT_RDS);
         break;
       case 'PLOTLY':
-        RdsQueryController.tabulate<PlotlyDataSet>(RECORD_CATALOG_ID, RECORD_DATA_PRODUCT_ID, {
+        recordLevelDataProduct.tabulate<PlotlyDataSet>({
           ...RECORD_EXAMPLE_PARAMS,
           format: 'plotly_heatmap',
         }).then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(RECORD_CHART_ELEMENT_ID, res?.parsedBody));
