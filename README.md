@@ -9,9 +9,9 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge)](https://github.com/semantic-release/semantic-release)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://github.com/prettier/prettier)
 
-| [See our Covid-19 example app](https://mtna.github.io/rds-js-examples/) | [View and edit the source code](https://mtna.github.io/rds-js-examples/#select-query) | [See various visualizations](https://mtna.github.io/rds-js-examples/#tabulate-query) |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| ![example-app](./resources/screenshot-example-app.jpg)                  | ![code-editor](./resources/screenshot-code-editor.jpg)                                | ![visualizations](./resources/screenshot-visualizations.jpg)                         |
+| [Covid-19 demo app](https://mtna.github.io/rds-js-examples/) | [Edit the source code](https://mtna.github.io/rds-js-examples/#select-query) | [Various visualizations](https://mtna.github.io/rds-js-examples/#tabulate-query) |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| ![example-app](./resources/screenshot-example-app.jpg)       | ![code-editor](./resources/screenshot-code-editor.jpg)                       | ![visualizations](./resources/screenshot-visualizations.jpg)                     |
 
 <a href="https://www.richdataservices.com"><img src="./resources/rds-logo.png" align="left" width="200"></a>
 
