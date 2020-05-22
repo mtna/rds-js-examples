@@ -5,8 +5,9 @@
 
 /* Header */
 .mdc-top-app-bar {
-  @include mdc-elevation-mixins.elevation(7);
+  top: 0;
   background-color: colors.$color-rds-white;
+  @include mdc-elevation-mixins.elevation(7);
   .brand-logo {
     width: 160px;
   }
