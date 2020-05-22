@@ -6,6 +6,8 @@
   $on-primary: colors.$color-rds-white
 );
 
+@use './styles/mixins';
+
 @use "@material/layout-grid/mdc-layout-grid";
 @use "@material/layout-grid/mixins" as mdc-mixins;
 @use '@material/layout-grid/variables';
@@ -125,6 +127,14 @@ h6 {
 
 /** END TYPOGRPHY **/
 
+// offset app bar
+main {
+  margin-top: 64px;
+  @include mixins.before(map.get(variables.$breakpoints, 'tablet')) {
+    margin-top: 56px;
+  }
+}
+
 .container {
   display: block;
   max-width: $large;
@@ -200,8 +210,8 @@ h6 {
 }
 
 .white-section-container {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   background: #fff;
 }
 

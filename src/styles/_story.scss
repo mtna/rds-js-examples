@@ -82,6 +82,20 @@ $border-styles: 2px solid colors.$color-rds-gray-3;
 
 .path-container {
   margin-bottom: 32px;
+
+  .path-instructions {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: $border-styles;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin: 0;
+    padding: 0rem 1rem;
+    color: colors.$color-rds-grey-1;
+  }
   .mdc-card {
     &:hover:not(.selected) {
       @include mdc-elevation-mixins.elevation(7);
@@ -97,7 +111,9 @@ $border-styles: 2px solid colors.$color-rds-gray-3;
       width: 12px;
     }
     p {
-      padding: 8px 16px;
+      padding: 4px 16px;
+      color: colors.$color-rds-grey-1;
+      font-size: 1rem;
     }
   }
 
