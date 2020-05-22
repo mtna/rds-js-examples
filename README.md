@@ -1,4 +1,5 @@
 # RDS - JS - Examples
+
 #### _WARNING: THIS PROJECT IS IN EARLY DEVELOPMENT STAGE. CONTENT OR CODE SHOULD ONLY BE USED FOR TESTING OR EVALUATION PURPOSES._
 
 ![Travis (.com) branch](https://img.shields.io/travis/com/mtna/rds-js-examples?style=for-the-badge)
@@ -7,6 +8,10 @@
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/mtna/rds-js-examples?style=for-the-badge)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=for-the-badge)](https://github.com/semantic-release/semantic-release)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://github.com/prettier/prettier)
+
+| [See our Covid-19 example app](https://mtna.github.io/rds-js-examples/) | [View and edit the source code](https://mtna.github.io/rds-js-examples/#select-query) | [See various visualizations](https://mtna.github.io/rds-js-examples/#tabulate-query) |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| ![example-app](./resources/screenshot-example-app.jpg)                  | ![code-editor](./resources/screenshot-code-editor.jpg)                                | ![visualizations](./resources/screenshot-visualizations.jpg)                         |
 
 <a href="https://www.richdataservices.com"><img src="./resources/rds-logo.png" align="left" width="200"></a>
 
@@ -17,30 +22,35 @@
 Be sure to checkout the sdk source code and documentation.
 
 ## References
-[RDS JavaScript SDK](https://github.com/mtna/rds-js) | [RDS API Documentation](https://covid19.richdataservices.com/rds/swagger/) | [RDS](https://www.richdataservices.com/) | [Contributing](CONTRIBUTING.md) | [Developer Documentation](DEVELOPER.md) | [Changelog](CHANGELOG.md)
-|---|---|---|---|---|---|
+
+| [RDS JavaScript SDK](https://github.com/mtna/rds-js) | [RDS API Documentation](https://covid19.richdataservices.com/rds/swagger/) | [RDS](https://www.richdataservices.com/) | [Contributing](CONTRIBUTING.md) | [Developer Documentation](DEVELOPER.md) | [Changelog](CHANGELOG.md) |
+| ---------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------- | --------------------------------------- | ------------------------- |
+
 
 ## Quick start
 
 1. Clone this repository and navigate into the directory.
 2. Install dependencies
-    ```shell
-    npm i
-    ```
+   ```shell
+   npm i
+   ```
 3. Run the application on a local development server
-    ```
-    npm start
-    ```
-    Open your browser to http://localhost:4200
+   ```
+   npm start
+   ```
+   Open your browser to http://localhost:4200
 
 ## Development
+
 This repository leverages a few technologies to make development simple.
-* [Parcel](https://parceljs.org/) to build and bundle
-* [Material Design Components for the Web](https://github.com/material-components/material-components-web/)
-* [Sass](https://sass-lang.com/)
-* [posthtml-include](https://github.com/posthtml/posthtml-include)
+
+- [Parcel](https://parceljs.org/) to build and bundle
+- [Material Design Components for the Web](https://github.com/material-components/material-components-web/)
+- [Sass](https://sass-lang.com/)
+- [posthtml-include](https://github.com/posthtml/posthtml-include)
 
 Running `npm start` will compile TypeScript and Sass files, combine html partials (via posthtml-include) and serve on http://localhost:4200. It will watch for file changes and automatically rebuild and refresh the page on save.
 
 ## Build
+
 Production builds are simple thanks to Parcel. Just run `npm run build` and the compiled output will be placed in the `/dist` directory.
