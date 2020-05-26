@@ -54,3 +54,12 @@ Running `npm start` will compile TypeScript and Sass files, combine html partial
 ## Build
 
 Production builds are simple thanks to Parcel. Just run `npm run build` and the compiled output will be placed in the `/dist` directory.
+
+## Contribute
+
+Putting this product together and maintaining the repository takes time and resources. We welcome your support in any shape or form, in particular:
+
+- Fork/clone, and contribute to the package
+- Let us know is you find any discrepancy or have suggestions towards enhancing the content or quality of the library
+- Buy us a beer/coffee! Donations are appreciated and can be made through [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GKAYVJSBLN92E)
+- Consider using RDS or any of our data/metadata [services, products, or expertise](http://www.mtna.us)
