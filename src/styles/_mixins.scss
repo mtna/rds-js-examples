@@ -1,3 +1,6 @@
+@use "sass:map";
+@use '@material/layout-grid/variables';
+
 @mixin break($size) {
   @media screen and (min-width: $size) {
     @content;
@@ -7,5 +10,51 @@
 @mixin before($size) {
   @media screen and (max-width: $size - 1px) {
     @content;
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@mixin scale($prop, $y1, $y2, $x1: null, $x2: null) {
+  // $x represents the view port width and $y represents the value of the
+  // property you're trying to scale. When we graph that as:
+  // p1 = $x1, $y1: a point at the smallest view width the smallest value
+  // p2 = $x2, $y2: a point at the largest view width the largest value
+  // We can now calculate the slope of the line from p1 to p2 and using that
+  // slope we can calculate what the value(y) should be at any given point in
+  // the view width(x). We will have to offset by the starting point once we
+  // calc the y value however.
+  // The equation is:
+  // (((($x1 - $x2) / ($y1 - $y2)) * (x - $x1)) + $y1)
+  //   |-----Calculate Slope-----|   | |             |
+  //   |-------Calculate value(y)----+-|             |
+  //                                 |--With Offset--|
+
+  @if ($x1 == null) {
+    $x1: map.get(variables.$breakpoints, 'tablet');
+  }
+  @if ($x2 == null) {
+    $x2: map.get(variables.$breakpoints, 'desktop');
+  }
+
+  $x1: strip-unit($x1);
+  $x2: strip-unit($x2);
+
+  $slope: strip-unit(($y1 - $y2) / ($x1 - $x2));
+
+  #{$prop}: $y1;
+
+  @include break($x1 + 'px') {
+    #{$prop}: calc((#{$slope} * (100vw - #{$x1}px)) + #{$y1});
+  }
+
+  @include break($x2 + 'px') {
+    #{$prop}: $y2;
   }
 }
