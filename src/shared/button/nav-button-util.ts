@@ -19,14 +19,21 @@ export class NavButtonUtil {
         /* Grab element ID using the data-navigate-to property of button */
         const elementId = button.dataset.navigateTo;
         if (elementId) {
-          const scrollElement = document.getElementById(elementId);
-          if (scrollElement) {
-            scrollElement.scrollIntoView({
-              behavior: 'smooth',
-            });
-          }
+          NavButtonUtil.scrollTo(elementId);
         }
       });
     });
+  }
+
+  /**
+   * Scrolls a given element into view. Can provide an extra offset if needed
+   * @param selector: string - ID of the element to scroll to
+   * @param yOffset: number - additional offset if needed
+   */
+  private static scrollTo(selector: string, yOffset = 0) {
+    const el: HTMLElement = document.getElementById(selector) as HTMLElement;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
