@@ -59,6 +59,7 @@
     "@material/typography": "^6.0.0",
     "@rds/sdk": "^1.0.0-alpha.5",
     "@stackblitz/sdk": "^1.3.0",
+    "smoothscroll-polyfill": "^0.4.4",
     "snyk": "^1.321.0"
   },
   "devDependencies": {

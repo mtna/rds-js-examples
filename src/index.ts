@@ -1,5 +1,6 @@
 /* Need for async/await, see https://github.com/parcel-bundler/parcel/issues/3375 */
 import 'regenerator-runtime/runtime';
+import smoothscroll from 'smoothscroll-polyfill';
 
 import { MDCSelect } from '@material/select';
 import {
@@ -36,9 +37,16 @@ import {
   PLOTLY_SCATTER_WITHOUT_RDS,
 } from './examples/all-stackblitz-example-configs';
 import { NavBarUtil } from './shared/nav-bar-util';
+import { NavButtonUtil } from 'shared/button/nav-button-util';
+
+// initialize smooth scroll polyfill
+// tslint:disable-next-line: no-unsafe-any
+smoothscroll.polyfill();
 
 // Initialize the navbar and nav drawer
 NavBarUtil.initializeNavBar();
+// Initialize the navbar buttons for scrolling
+NavButtonUtil.initializeButtons();
 
 //#region RDS SDK SETUP
 
@@ -99,30 +107,34 @@ StackBlitzUtil.embed(RECORD_WITH_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITH_RDS);
 StackBlitzUtil.embed(RECORD_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITHOUT_RDS);
 
 // Initial chart examples
-aggregateDataProduct.select<AmchartsDataSet>({
-  ...AGGREGATE_EXAMPLE_PARAMS,
-  format: 'amcharts',
-}).then((res: HttpResponse<AmchartsDataSet>) =>
-  AmChartsLineUtil.createDateLineChart({
-    elementId: AGGREGATE_CHART_ELEMENT_ID,
-    data: res?.parsedBody?.dataProvider,
-    dateName: 'date_stamp',
-    lines: AMCHARTS_LINE_SERIES,
-    yTitle: 'Total Cases for U.S.',
+aggregateDataProduct
+  .select<AmchartsDataSet>({
+    ...AGGREGATE_EXAMPLE_PARAMS,
+    format: 'amcharts',
   })
-);
-recordLevelDataProduct.tabulate<AmchartsDataSet>({
-  ...RECORD_EXAMPLE_PARAMS,
-  format: 'amcharts',
-}).then((res: HttpResponse<AmchartsDataSet>) =>
-  AmChartsHeatUtil.createChart({
-    elementId: RECORD_CHART_ELEMENT_ID,
-    data: res?.parsedBody?.dataProvider,
-    xCategory: 'gender',
-    yCategory: 'age_group',
-    valueCategory: 'COUNT',
+  .then((res: HttpResponse<AmchartsDataSet>) =>
+    AmChartsLineUtil.createDateLineChart({
+      elementId: AGGREGATE_CHART_ELEMENT_ID,
+      data: res?.parsedBody?.dataProvider,
+      dateName: 'date_stamp',
+      lines: AMCHARTS_LINE_SERIES,
+      yTitle: 'Total Cases for U.S.',
+    })
+  );
+recordLevelDataProduct
+  .tabulate<AmchartsDataSet>({
+    ...RECORD_EXAMPLE_PARAMS,
+    format: 'amcharts',
   })
-);
+  .then((res: HttpResponse<AmchartsDataSet>) =>
+    AmChartsHeatUtil.createChart({
+      elementId: RECORD_CHART_ELEMENT_ID,
+      data: res?.parsedBody?.dataProvider,
+      xCategory: 'gender',
+      yCategory: 'age_group',
+      valueCategory: 'COUNT',
+    })
+  );
 
 // initialize the tab bars and set up listeners
 const AGGRAGATE_TAB_BAR = TabBarUtil.initializeTabBar(document.querySelector('.line-chart'));
@@ -159,40 +171,46 @@ if (aggregateChartTypeSelectElement) {
     // Update example chart and embedded stackblitzes
     switch (currentAggregateChartType) {
       case 'AMCHARTS':
-        aggregateDataProduct.select<AmchartsDataSet>({
-          ...AGGREGATE_EXAMPLE_PARAMS,
-          format: 'amcharts',
-        }).then((res: HttpResponse<AmchartsDataSet>) =>
-          AmChartsLineUtil.createDateLineChart({
-            elementId: AGGREGATE_CHART_ELEMENT_ID,
-            data: res?.parsedBody?.dataProvider,
-            dateName: 'date_stamp',
-            lines: AMCHARTS_LINE_SERIES,
-            yTitle: 'Total Cases for U.S.',
+        aggregateDataProduct
+          .select<AmchartsDataSet>({
+            ...AGGREGATE_EXAMPLE_PARAMS,
+            format: 'amcharts',
           })
-        );
+          .then((res: HttpResponse<AmchartsDataSet>) =>
+            AmChartsLineUtil.createDateLineChart({
+              elementId: AGGREGATE_CHART_ELEMENT_ID,
+              data: res?.parsedBody?.dataProvider,
+              dateName: 'date_stamp',
+              lines: AMCHARTS_LINE_SERIES,
+              yTitle: 'Total Cases for U.S.',
+            })
+          );
         StackBlitzUtil.embed(AGGREGATE_WITH_RDS_CODE_ELEMENT_ID, AMCHARTS_LINE_WITH_RDS);
         StackBlitzUtil.embed(AGGREGATE_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_LINE_WITHOUT_RDS);
         break;
       case 'GCHARTS':
-        aggregateDataProduct.select<GchartsDataSet>({
-          ...AGGREGATE_EXAMPLE_PARAMS,
-          format: 'gcharts',
-        }).then((res: HttpResponse<GchartsDataSet>) =>
-          GoogleChartLineUtil.createChart({
-            elementId: AGGREGATE_CHART_ELEMENT_ID,
-            chartTitle: 'Totals by Date',
-            data: res?.parsedBody,
+        aggregateDataProduct
+          .select<GchartsDataSet>({
+            ...AGGREGATE_EXAMPLE_PARAMS,
+            format: 'gcharts',
           })
-        );
+          .then((res: HttpResponse<GchartsDataSet>) =>
+            GoogleChartLineUtil.createChart({
+              elementId: AGGREGATE_CHART_ELEMENT_ID,
+              chartTitle: 'Totals by Date',
+              data: res?.parsedBody,
+            })
+          );
         StackBlitzUtil.embed(AGGREGATE_WITH_RDS_CODE_ELEMENT_ID, GCHARTS_LINE_WITH_RDS);
         StackBlitzUtil.embed(AGGREGATE_WITHOUT_RDS_CODE_ELEMENT_ID, GCHARTS_LINE_WITHOUT_RDS);
         break;
       case 'PLOTLY':
-        aggregateDataProduct.select<PlotlyDataSet>({
-          ...AGGREGATE_EXAMPLE_PARAMS,
-          format: 'plotly_scatter',
-        }).then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(AGGREGATE_CHART_ELEMENT_ID, res?.parsedBody));
+        aggregateDataProduct
+          .select<PlotlyDataSet>({
+            ...AGGREGATE_EXAMPLE_PARAMS,
+            format: 'plotly_scatter',
+          })
+          .then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(AGGREGATE_CHART_ELEMENT_ID, res?.parsedBody));
         StackBlitzUtil.embed(AGGREGATE_WITH_RDS_CODE_ELEMENT_ID, PLOTLY_SCATTER_WITH_RDS);
         StackBlitzUtil.embed(AGGREGATE_WITHOUT_RDS_CODE_ELEMENT_ID, PLOTLY_SCATTER_WITHOUT_RDS);
         break;
@@ -224,26 +242,30 @@ if (recordChartTypeSelectElement) {
     // Update embedded stackblitz
     switch (currentRecordChartType) {
       case 'AMCHARTS':
-        recordLevelDataProduct.tabulate<AmchartsDataSet>({
-          ...RECORD_EXAMPLE_PARAMS,
-          format: 'amcharts',
-        }).then((res: HttpResponse<AmchartsDataSet>) => {
-          AmChartsHeatUtil.createChart({
-            elementId: RECORD_CHART_ELEMENT_ID,
-            data: res?.parsedBody?.dataProvider,
-            xCategory: 'gender',
-            yCategory: 'age_group',
-            valueCategory: 'COUNT',
+        recordLevelDataProduct
+          .tabulate<AmchartsDataSet>({
+            ...RECORD_EXAMPLE_PARAMS,
+            format: 'amcharts',
+          })
+          .then((res: HttpResponse<AmchartsDataSet>) => {
+            AmChartsHeatUtil.createChart({
+              elementId: RECORD_CHART_ELEMENT_ID,
+              data: res?.parsedBody?.dataProvider,
+              xCategory: 'gender',
+              yCategory: 'age_group',
+              valueCategory: 'COUNT',
+            });
           });
-        });
         StackBlitzUtil.embed(RECORD_WITH_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITH_RDS);
         StackBlitzUtil.embed(RECORD_WITHOUT_RDS_CODE_ELEMENT_ID, AMCHARTS_HEAT_WITHOUT_RDS);
         break;
       case 'PLOTLY':
-        recordLevelDataProduct.tabulate<PlotlyDataSet>({
-          ...RECORD_EXAMPLE_PARAMS,
-          format: 'plotly_heatmap',
-        }).then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(RECORD_CHART_ELEMENT_ID, res?.parsedBody));
+        recordLevelDataProduct
+          .tabulate<PlotlyDataSet>({
+            ...RECORD_EXAMPLE_PARAMS,
+            format: 'plotly_heatmap',
+          })
+          .then((res: HttpResponse<PlotlyDataSet>) => PlotlyChartUtil.createChart(RECORD_CHART_ELEMENT_ID, res?.parsedBody));
         StackBlitzUtil.embed(RECORD_WITH_RDS_CODE_ELEMENT_ID, PLOTLY_HEAT_WITH_RDS);
         StackBlitzUtil.embed(RECORD_WITHOUT_RDS_CODE_ELEMENT_ID, PLOTLY_HEAT_WITHOUT_RDS);
         break;
