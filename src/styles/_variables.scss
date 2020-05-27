@@ -1,1 +1,5 @@
+@use "sass:map";
+@use '@material/layout-grid/variables' as mdc-variables;
+
 $rds-trans: all ease-in-out 300ms;
+$small-and-down: "only screen and (max-width : #{map.get(mdc-variables.$breakpoints, 'tablet')})" !default;
