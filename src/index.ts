@@ -1,5 +1,6 @@
 /* Need for async/await, see https://github.com/parcel-bundler/parcel/issues/3375 */
 import 'regenerator-runtime/runtime';
+import smoothscroll from 'smoothscroll-polyfill';
 
 import { MDCSelect } from '@material/select';
 import {
@@ -36,6 +37,11 @@ import {
   PLOTLY_SCATTER_WITHOUT_RDS,
 } from './examples/all-stackblitz-example-configs';
 import { NavBarUtil } from './shared/nav-bar-util';
+import { NavButtonUtil } from 'shared/button/nav-button-util';
+
+// initialize smooth scroll polyfill
+// tslint:disable-next-line: no-unsafe-any
+smoothscroll.polyfill();
 
 // Set copyright year
 const yearElem = document.getElementById('rds-copy-year');
@@ -45,6 +51,8 @@ if (yearElem) {
 
 // Initialize the navbar and nav drawer
 NavBarUtil.initializeNavBar();
+// Initialize the navbar buttons for scrolling
+NavButtonUtil.initializeButtons();
 
 //#region RDS SDK SETUP
 
