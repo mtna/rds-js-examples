@@ -1,0 +1,45 @@
+@use "sass:map";
+@use '@material/layout-grid/variables' as mdc-variables;
+@use "./colors";
+@use "./mixins";
+@use "./variables";
+
+div.rds-need-help-container {
+  background-color: colors.$color-rds-grey-5;
+  min-height: 144px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* IE11 */
+  @media all and (-ms-high-contrast: none) {
+    *::-ms-backdrop,
+    & {
+      min-height: 0;
+    }
+  }
+
+  @include mixins.before(map.get(mdc-variables.$breakpoints, 'tablet')) {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .question {
+    width: 247px;
+    display: flex;
+    align-items: center;
+  }
+
+  .call-to-action {
+    margin-left: 32px;
+    padding: 20px 0;
+    width: 414px;
+
+    @media #{variables.$small-and-down} {
+      margin-left: 0px;
+      width: 100%;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  }
+}
