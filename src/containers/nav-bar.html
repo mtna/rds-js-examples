@@ -1,42 +1,35 @@
 <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-      <a href="#"
-         class="mdc-top-app-bar__title"><img class="brand-logo" src="./assets/RDS-Logo.png"></a>
+      <a href="#" class="mdc-top-app-bar__title"><img class="brand-logo" src="./assets/RDS-Logo.png"></a>
     </section>
-    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"
-             role="toolbar">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
       <div class="small-screen-menu">
         <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">
           <img src="./assets/menu-18dp.svg">
         </button>
       </div>
       <div class="large-screen-menu">
-        <a class="mdc-button"
-           href="#">
+        <button class="mdc-button nav-button" tabindex="0" data-navigate-to="home">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Home</span>
-        </a>
-        <a class="mdc-button"
-           href="#choose-path">
+        </button>
+        <button class="mdc-button nav-button" data-navigate-to="choose-path">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Choose Your Path</span>
-        </a>
-        <a class="mdc-button"
-           href="#select-query">
+        </button>
+        <button class="mdc-button nav-button" data-navigate-to="select-query">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Select Example</span>
-        </a>
-        <a class="mdc-button"
-           href="#tabulate-query">
+        </button>
+        <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Tabulate Example</span>
-        </a>
-        <a class="mdc-button"
-           href="#rds-products">
+        </button>
+        <button class="mdc-button nav-button" data-navigate-to="rds-products">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">RDS Products</span>
-        </a>
+        </button>
       </div>
     </section>
   </div>
@@ -45,32 +38,26 @@
 <aside class="mdc-drawer mdc-drawer--modal">
   <div class="mdc-drawer__content">
     <nav>
-      <a class="mdc-button"
-         tabindex="0"
-         href="#">
+      <button class="mdc-button nav-button" tabindex="0" data-navigate-to="home">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Home</span>
-      </a>
-      <a class="mdc-button"
-         href="#choose-path">
+      </button>
+      <button class="mdc-button nav-button" data-navigate-to="choose-path">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Choose Your Path</span>
-      </a>
-      <a class="mdc-button"
-         href="#select-query">
+      </button>
+      <button class="mdc-button nav-button" data-navigate-to="select-query">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Select Example</span>
-      </a>
-      <a class="mdc-button"
-         href="#tabulate-query">
+      </button>
+      <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Tabulate Example</span>
-      </a>
-      <a class="mdc-button"
-         href="#rds-products">
+      </button>
+      <button class="mdc-button nav-button" data-navigate-to="rds-products">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">RDS Products</span>
-      </a>
+      </button>
     </nav>
   </div>
 </aside>
