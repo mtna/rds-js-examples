@@ -1,0 +1,215 @@
+@use "sass:map";
+@use '@material/layout-grid/variables' as mdc-variables;
+@use './variables';
+@use "./mixins";
+@use "./colors";
+
+.page-footer {
+  background-color: colors.$color-rds-blue;
+  color: colors.$color-rds-white;
+  font-size: 16px;
+  text-align: center;
+  @include mixins.scale('padding-top', 50px, 70px, variables.$medium-screen);
+  padding-bottom: 50px;
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .logo {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 0 30px;
+
+    @include mixins.break(variables.$small-screen) {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+
+      @include mixins.scale('margin-right', 20px, 30px, variables.$medium-screen);
+    }
+
+    svg {
+      width: 100%;
+      max-width: 400px;
+
+      @include mixins.scale('width', 160px, 215px, variables.$small-screen, variables.$medium-screen);
+      @include mixins.scale('height', 40px, 65px, variables.$small-screen, variables.$medium-screen);
+    }
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    width: 100%;
+
+    @include mixins.break(variables.$medium-screen) {
+      flex-wrap: nowrap;
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    & > * {
+      width: calc(50% - 20px);
+      margin: 10px;
+
+      @include mixins.break(variables.$medium-screen) {
+        width: calc(25% - 20px);
+      }
+
+      @include mixins.break(variables.$medium-screen) {
+        width: auto;
+        @include mixins.scale('margin-right', 15px, 30px, variables.$medium-screen);
+      }
+    }
+  }
+
+  .links {
+    text-align: center;
+
+    @include mixins.break(variables.$small-screen) {
+      text-align: left;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        width: 100%;
+        height: 3px;
+        background-color: colors.$color-rds-white;
+        display: block;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+      }
+    }
+
+    a {
+      display: block;
+      color: colors.$color-rds-white;
+      transition: variables.$rds-trans;
+
+      &:hover {
+        color: colors.$color-rds-blue-3;
+      }
+    }
+  }
+
+  @include mixins.break(variables.$medium-screen) {
+    .rds-button-footer {
+      margin-left: auto;
+    }
+  }
+
+  hr {
+    width: 100%;
+    margin: 50px 0;
+    height: 2px;
+    border: 0;
+    background-color: rgba(colors.$color-rds-white, 0.1);
+
+    @include mixins.break(variables.$medium-screen) {
+      @include mixins.scale('margin-top', 30px, 50px, variables.$medium-screen);
+      @include mixins.scale('margin-bottom', 30px, 50px, variables.$medium-screen);
+    }
+  }
+
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    @include mixins.break(variables.$medium-screen) {
+      width: auto;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+
+    @include mixins.break(variables.$medium-screen) {
+      margin: 0;
+      margin-right: auto;
+      margin-bottom: 0;
+    }
+
+    span {
+      width: 100%;
+      margin-bottom: 20px;
+
+      @include mixins.break(variables.$medium-screen) {
+        width: auto;
+        margin-bottom: 0;
+      }
+    }
+
+    br {
+      @include mixins.break(variables.$medium-screen) {
+        display: none;
+      }
+    }
+
+    a {
+      display: block;
+      width: 50%;
+      text-decoration: underline;
+      color: colors.$color-rds-white;
+      transition: variables.$rds-trans;
+
+      @include mixins.break(variables.$medium-screen) {
+        width: auto;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: colors.$color-rds-blue-3;
+      }
+    }
+  }
+
+  .mtna {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 700;
+
+    @include mixins.break(variables.$medium-screen) {
+      width: auto;
+      margin: 0 auto;
+      margin-top: -4px;
+    }
+
+    @include mixins.break(variables.$medium-screen) {
+      margin: 0;
+    }
+
+    .mtna-logo {
+      width: 123px;
+      height: 40px;
+      transition: variables.$rds-trans;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    & > * {
+      margin: 0 10px;
+    }
+  }
+}

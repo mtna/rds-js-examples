@@ -43,6 +43,12 @@ import { NavButtonUtil } from 'shared/button/nav-button-util';
 // tslint:disable-next-line: no-unsafe-any
 smoothscroll.polyfill();
 
+// Set copyright year
+const yearElem = document.getElementById('rds-copy-year');
+if (yearElem) {
+  yearElem.innerHTML = new Date().getFullYear().toString();
+}
+
 // Initialize the navbar and nav drawer
 NavBarUtil.initializeNavBar();
 // Initialize the navbar buttons for scrolling

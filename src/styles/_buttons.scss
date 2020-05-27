@@ -1,0 +1,219 @@
+@use "./colors";
+@use './variables';
+
+%rds-button {
+  font-weight: 500;
+  text-align: center;
+  transition: variables.$rds-trans;
+  border-radius: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  & + a {
+    margin-left: 23px;
+  }
+
+  > * {
+    flex-shrink: 0;
+  }
+
+  svg {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    transition: variables.$rds-trans;
+    fill: colors.$color-rds-grey-5;
+    stroke: colors.$color-rds-grey-5;
+  }
+
+  &:hover {
+    color: colors.$color-rds-white;
+  }
+  &:hover svg {
+    fill: colors.$color-rds-white;
+    stroke: colors.$color-rds-white;
+  }
+}
+
+.rds-button-secondary {
+  @extend %rds-button;
+  color: colors.$color-rds-grey-5;
+  font-size: 20px;
+  line-height: 23px;
+  padding: 20px 30px;
+  background: colors.$color-rds-secondary;
+  box-shadow: 2px 4px 9px rgba(98, 124, 140, 0.33), 1px 14px 24px rgba(98, 124, 140, 0.1);
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+  }
+}
+
+button.rds-button-secondary {
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+}
+
+.rds-button-secondary-small {
+  @extend %rds-button;
+  color: colors.$color-rds-grey-5;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 15px 20px;
+  background: colors.$color-rds-secondary;
+  box-shadow: 2px 4px 19px rgba(5, 11, 15, 0.33), 1px 14px 44px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+  }
+}
+
+.rds-button-blue {
+  @extend %rds-button;
+  color: colors.$color-rds-white;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 15px 20px;
+  background: colors.$color-rds-blue;
+
+  svg {
+    fill: colors.$color-rds-white;
+    stroke: colors.$color-rds-white;
+  }
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+  }
+}
+
+.rds-button-flat-white {
+  @extend %rds-button;
+  color: colors.$color-rds-white;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 15px 20px;
+  box-shadow: 2px 4px 19px rgba(5, 11, 15, 0.33), 1px 14px 44px rgba(0, 0, 0, 0.1);
+  border: 2px solid colors.$color-rds-grey-5;
+
+  &:hover {
+    background: colors.$color-rds-grey-5;
+    color: colors.$color-rds-blue;
+
+    svg {
+      fill: colors.$color-rds-blue;
+      stroke: colors.$color-rds-blue;
+    }
+  }
+}
+
+.rds-button-flat-secondary {
+  @extend %rds-button;
+  color: colors.$color-rds-secondary;
+  font-size: 20px;
+  line-height: 26px;
+  padding: 21px 42px;
+  border: 2px solid colors.$color-rds-secondary;
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+    color: colors.$color-rds-white;
+    border: 2px solid colors.$color-rds-secondary-hover;
+    box-shadow: 2px 4px 19px rgba(5, 11, 15, 0.33), 1px 14px 44px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.rds-button-flat-blue {
+  @extend %rds-button;
+  color: colors.$color-rds-blue-2;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 15px 20px;
+  border: 2px solid colors.$color-rds-blue-2;
+
+  svg {
+    fill: colors.$color-rds-blue-2;
+    stroke: colors.$color-rds-blue-2;
+  }
+
+  &:hover {
+    background: colors.$color-rds-blue-2;
+    box-shadow: 2px 4px 19px rgba(5, 11, 15, 0.33), 1px 14px 44px rgba(0, 0, 0, 0.1);
+    color: colors.$color-rds-white;
+
+    svg {
+      fill: colors.$color-rds-white;
+      stroke: colors.$color-rds-white;
+    }
+  }
+}
+
+.rds-button-cta-white {
+  @extend %rds-button;
+  color: colors.$color-rds-grey-5;
+  font-size: 20px;
+  line-height: 23px;
+  padding: 20px 30px;
+  border: 2px solid colors.$color-rds-grey-4;
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+    border: 2px solid colors.$color-rds-secondary-hover;
+  }
+}
+
+.rds-button-cta-secondary {
+  @extend %rds-button;
+  color: colors.$color-rds-grey-5;
+  margin-top: 15px;
+  font-size: 20px;
+  line-height: 23px;
+  padding: 20px 30px;
+  background: colors.$color-rds-secondary;
+  border: 2px solid colors.$color-rds-secondary;
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+    border: 2px solid colors.$color-rds-secondary-hover;
+  }
+}
+
+.rds-button-footer {
+  @extend %rds-button;
+  color: colors.$color-rds-grey-5;
+  font-size: 20px;
+  line-height: 23px;
+  padding: 20px 30px;
+  background: colors.$color-rds-secondary;
+
+  @media #{variables.$small-and-down} {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+    box-shadow: 2px 4px 9px rgba(98, 124, 140, 0.33), 1px 14px 24px rgba(98, 124, 140, 0.1);
+  }
+}
+
+#svg-open svg {
+  width: 20px;
+  height: 20px;
+}
+
+.rds-button-open-external {
+  @extend %rds-button;
+  width: 100%;
+  color: colors.$color-rds-grey-5;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 12px 15px;
+  background: colors.$color-rds-secondary;
+  box-shadow: 2px 4px 9px rgba(98, 124, 140, 0.33), 1px 14px 24px rgba(98, 124, 140, 0.1);
+  &:hover {
+    background: colors.$color-rds-secondary-hover;
+  }
+}
