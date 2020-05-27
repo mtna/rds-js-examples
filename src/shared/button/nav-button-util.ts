@@ -31,9 +31,12 @@ export class NavButtonUtil {
    * @param yOffset: number - additional offset if needed
    */
   private static scrollTo(selector: string, yOffset = 0) {
-    const el: HTMLElement = document.getElementById(selector) as HTMLElement;
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    const el = document.getElementById(selector);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    } else {
+      console.warn(`[NavButtonUtil] scrollTo: cannot find element with id ${selector}`);
+    }
   }
 }
