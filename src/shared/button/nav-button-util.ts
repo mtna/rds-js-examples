@@ -19,7 +19,7 @@ export class NavButtonUtil {
         /* Grab element ID using the data-navigate-to property of button */
         const elementId = button.dataset.navigateTo;
         if (elementId) {
-          NavButtonUtil.scrollTo(elementId);
+          NavButtonUtil.scrollTo(elementId, -20);
         }
       });
     });

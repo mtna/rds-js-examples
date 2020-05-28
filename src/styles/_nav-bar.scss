@@ -13,6 +13,9 @@
   }
   .large-screen-menu {
     display: flex;
+    .mdc-button.nav-button {
+      margin: 0 8px;
+    }
   }
   .small-screen-menu {
     display: none;
@@ -32,9 +35,6 @@
     a {
       margin-bottom: 8px;
       width: 100%;
-    }
-    .material-icons {
-      margin-right: 16px;
     }
   }
 }

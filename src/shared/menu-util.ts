@@ -6,9 +6,8 @@ export class MenuUtil {
   static MENU_BUTTON_SELECTOR = '.nav-menu-surface-button';
 
   /**
-   * Initialize the MDCTabBar, set up the even handlers
-   * to hide inactive tab contents and show active tab contents.
-   * @param tabsContainer A parent element of the MDCTabBar and tab contents
+   * Initialize the MDCMenu on the nav bar, set up the event handlers
+   * to open/close the menu
    */
   static initializeMenu() {
     const menuElement = document.querySelector(this.MENU_SELECTOR);
