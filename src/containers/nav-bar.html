@@ -18,14 +18,26 @@
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">Show Me How</span>
         </button>
-        <button class="mdc-button nav-button" data-navigate-to="select-query">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Number of Cases</span>
-        </button>
-        <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Compare Gender and Age</span>
-        </button>
+        <div class="mdc-menu-surface--anchor">
+          <button class="mdc-button nav-menu-surface-button">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Examples</span>
+          </button>
+          <div class="mdc-menu-surface nav-example-menu-surface">
+            <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+              <li class="mdc-list-item" role="menuitem">
+                <button class="mdc-button nav-button" data-navigate-to="select-query">
+                  <span class="mdc-button__label">Number of Cases</span>
+                </button>
+              </li>
+              <li class="mdc-list-item" role="menuitem">
+                <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
+                  <span class="mdc-button__label">Compare Gender and Age</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
         <button class="mdc-button nav-button" data-navigate-to="rds-products">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">RDS Products</span>

@@ -12,10 +12,16 @@
     width: 160px;
   }
   .large-screen-menu {
-    display: inline;
+    display: flex;
   }
   .small-screen-menu {
     display: none;
+  }
+  .mdc-menu-surface {
+    min-width: 275px;
+    button {
+      text-align: left;
+    }
   }
 }
 

@@ -38,6 +38,7 @@ import {
 } from './examples/all-stackblitz-example-configs';
 import { NavBarUtil } from './shared/nav-bar-util';
 import { NavButtonUtil } from 'shared/button/nav-button-util';
+import { MenuUtil } from 'shared/menu-util';
 
 // initialize smooth scroll polyfill
 // tslint:disable-next-line: no-unsafe-any
@@ -53,6 +54,7 @@ if (yearElem) {
 NavBarUtil.initializeNavBar();
 // Initialize the navbar buttons for scrolling
 NavButtonUtil.initializeButtons();
+MenuUtil.initializeMenu();
 
 //#region RDS SDK SETUP
 
