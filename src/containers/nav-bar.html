@@ -49,24 +49,32 @@
 
 <aside class="mdc-drawer mdc-drawer--modal">
   <div class="mdc-drawer__content">
-    <nav>
-      <button class="mdc-button nav-button" tabindex="0" data-navigate-to="home">
+    <nav class="mdc-list">
+      <button class="mdc-list-item mdc-button nav-button" tabindex="0" data-navigate-to="home">
+        <span class="material-icons">home</span>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Home</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="choose-path">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="choose-path">
+        <span class="material-icons">school</span>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Show Me How</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="select-query">
+      <hr class="mdc-list-divider">
+      <h6 class="mdc-list-group__subheader">Examples</h6>
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="select-query">
+        <span class="material-icons">show_chart</span>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Number of Cases</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="tabulate-query">
+        <span class="material-icons">bar_chart</span>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Compare Gender and Age</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="rds-products">
+      <hr class="mdc-list-divider">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="rds-products">
+        <span class="material-icons">category</span>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">RDS Products</span>
       </button>
