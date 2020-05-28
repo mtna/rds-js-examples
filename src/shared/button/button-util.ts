@@ -9,7 +9,7 @@ export const LINE_CHART_CONFIG = new ButtonConfig(
     '<li>Filter out unecessary headers, columns, and rows.</li>' +
     '<li>Combine and reshape the datasets into a format that the charting library accepts.</li>' +
     '</ol>',
-  '#select-query'
+  '#number-of-cases-example'
 );
 
 export const BAR_CHART_CONFIG = new ButtonConfig(
@@ -26,7 +26,7 @@ export const BAR_CHART_CONFIG = new ButtonConfig(
     '<li>Upload and host your charting data with your app or where it can make a request to get it.</li>' +
     '<li><strong>Repeat the steps above every time the data is updated</strong></li>' +
     '</ol>',
-  '#tabulate-query'
+  '#comparison-gender-and-age-example'
 );
 
 export class ButtonUtil {

@@ -12,14 +12,37 @@
     width: 160px;
   }
   .large-screen-menu {
-    display: inline;
+    display: flex;
+    .mdc-button.nav-button {
+      margin: 0 8px;
+    }
   }
   .small-screen-menu {
     display: none;
   }
+  .mdc-menu-surface {
+    min-width: 275px;
+    button {
+      text-align: left;
+    }
+  }
 }
 
 .mdc-drawer {
+  // Styles needed to open drawer on rightside
+  &.mdc-drawer--modal {
+    left: initial;
+    right: 0;
+  }
+  &.mdc-drawer--animate,
+  &.mdc-drawer--closing {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  &.mdc-drawer--opening {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
   nav {
     display: flex;
     flex-direction: column;

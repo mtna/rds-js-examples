@@ -16,16 +16,28 @@
         </button>
         <button class="mdc-button nav-button" data-navigate-to="choose-path">
           <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Choose Your Path</span>
+          <span class="mdc-button__label">Show Me How</span>
         </button>
-        <button class="mdc-button nav-button" data-navigate-to="select-query">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Select Example</span>
-        </button>
-        <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Tabulate Example</span>
-        </button>
+        <div class="mdc-menu-surface--anchor">
+          <button class="mdc-button nav-menu-surface-button">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Examples</span>
+          </button>
+          <div class="mdc-menu-surface nav-example-menu-surface">
+            <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+              <li class="mdc-list-item" role="menuitem">
+                <button class="mdc-button nav-button" data-navigate-to="number-of-cases-example">
+                  <span class="mdc-button__label">Number of Cases</span>
+                </button>
+              </li>
+              <li class="mdc-list-item" role="menuitem">
+                <button class="mdc-button nav-button" data-navigate-to="comparison-gender-and-age-example">
+                  <span class="mdc-button__label">Compare Gender and Age</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
         <button class="mdc-button nav-button" data-navigate-to="rds-products">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">RDS Products</span>
@@ -37,24 +49,32 @@
 
 <aside class="mdc-drawer mdc-drawer--modal">
   <div class="mdc-drawer__content">
-    <nav>
-      <button class="mdc-button nav-button" tabindex="0" data-navigate-to="home">
+    <nav class="mdc-list">
+      <button class="mdc-list-item mdc-button nav-button" tabindex="0" data-navigate-to="home">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">Home</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="choose-path">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="choose-path">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">school</i>
         <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Choose Your Path</span>
+        <span class="mdc-button__label">Show Me How</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="select-query">
+      <hr class="mdc-list-divider">
+      <h6 class="mdc-list-group__subheader">Examples</h6>
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="number-of-cases-example">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">show_chart</i>
         <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Select Example</span>
+        <span class="mdc-button__label">Number of Cases</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="tabulate-query">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="comparison-gender-and-age-example">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">bar_chart</i>
         <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Tabulate Example</span>
+        <span class="mdc-button__label">Compare Gender and Age</span>
       </button>
-      <button class="mdc-button nav-button" data-navigate-to="rds-products">
+      <hr class="mdc-list-divider">
+      <button class="mdc-list-item mdc-button nav-button" data-navigate-to="rds-products">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">category</i>
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">RDS Products</span>
       </button>
