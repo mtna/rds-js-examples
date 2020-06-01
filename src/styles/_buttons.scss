@@ -27,6 +27,9 @@
     fill: colors.$color-rds-grey-5;
     stroke: colors.$color-rds-grey-5;
   }
+  i {
+    margin-right: 10px;
+  }
 
   &:hover {
     color: colors.$color-rds-white;
@@ -66,8 +69,18 @@ button.rds-button-secondary {
   background: colors.$color-rds-secondary;
   box-shadow: 2px 4px 19px rgba(5, 11, 15, 0.33), 1px 14px 44px rgba(0, 0, 0, 0.1);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: colors.$color-rds-secondary-hover;
+  }
+}
+
+button.rds-button-secondary-small {
+  font-family: Roboto, sans-serif;
+  border: none;
+  cursor: pointer;
+  &:focus {
+    outline: none;
   }
 }
 

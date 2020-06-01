@@ -7,11 +7,12 @@ export class NavButtonUtil {
 
     /* Setup ripple and event listener for scroll */
     buttonElements.forEach((button: HTMLButtonElement) => {
-      /* Initialize Ripple */
-      const buttonRipple = new MDCRipple(button);
-
-      if (!buttonRipple) {
-        throw new Error('[ButtonUtil] failed to query the MDCRipple element, could not initialize');
+      if (!button.dataset.disableRipple) {
+        // Initialize ripple
+        const buttonRipple = new MDCRipple(button);
+        if (!buttonRipple) {
+          throw new Error('[ButtonUtil] failed to query the MDCRipple element, could not initialize');
+        }
       }
 
       /* Setup listener event for smooth scroll */
