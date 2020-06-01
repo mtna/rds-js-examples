@@ -75,6 +75,13 @@ $mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints
       margin-top: 0;
       margin-bottom: 25px;
       font-weight: 500;
+
+      &.nav-button {
+        cursor: pointer;
+      }
+      &:focus {
+        outline: none;
+      }
     }
 
     h2 {
@@ -91,7 +98,7 @@ $mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints
     .txt-green {
       color: colors.$color-rds-secondary-hover;
 
-      .txt-underline::after {
+      &.txt-underline::after {
         background-color: colors.$color-rds-secondary-hover;
       }
     }
