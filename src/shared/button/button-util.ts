@@ -9,7 +9,7 @@ export const LINE_CHART_CONFIG = new ButtonConfig(
     '<li>Filter out unecessary headers, columns, and rows.</li>' +
     '<li>Combine and reshape the datasets into a format that the charting library accepts.</li>' +
     '</ol>',
-  '#number-of-cases-example'
+  'number-of-cases-example'
 );
 
 export const BAR_CHART_CONFIG = new ButtonConfig(
@@ -26,7 +26,7 @@ export const BAR_CHART_CONFIG = new ButtonConfig(
     '<li>Upload and host your charting data with your app or where it can make a request to get it.</li>' +
     '<li><strong>Repeat the steps above every time the data is updated</strong></li>' +
     '</ol>',
-  '#comparison-gender-and-age-example'
+  'comparison-gender-and-age-example'
 );
 
 export class ButtonUtil {
@@ -54,7 +54,7 @@ export class ButtonUtil {
     const selectedCardElement = document.querySelector(`.${buttonConfig.cardClass}`);
     /* Transitions for selected path */
     const selectedTransitions = document.querySelectorAll(`.${buttonConfig.cardClass}-transition`);
-    const showMeButton = document.querySelector(ButtonUtil.SHOW_ME_BUTTON_SELECTED) as HTMLAnchorElement | null;
+    const showMeButton = document.querySelector(ButtonUtil.SHOW_ME_BUTTON_SELECTED) as HTMLButtonElement | null;
     const showRdsElement = document.querySelector(ButtonUtil.SHOW_RDS_SELECTOR) as HTMLElement | null;
     const withoutRdsStepsElement = document.querySelector(`${ButtonUtil.NEXT_STEPS_SELECTOR}`) as HTMLElement | null;
     /* <p> element to update innerHTML on selections */
@@ -105,7 +105,7 @@ export class ButtonUtil {
       withoutRdsStepsElement.style.display = 'grid';
 
       // Update the link in the SHOW ME HOW button
-      showMeButton.href = buttonConfig.buttonLink;
+      showMeButton.dataset.navigateTo = buttonConfig.navigateTo;
 
       // Remove selected from all transitions and then update class for selected path
       dynamicTransitions.forEach((tr) => tr.classList.remove('selected'));
