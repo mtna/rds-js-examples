@@ -197,12 +197,17 @@ main {
   background-position: bottom -200px left -300px, top -200px right -300px, top left;
   color: #ffffff;
 
+  h4 {
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
   .rds-text {
     text-align: center;
 
     p {
       font-size: 20px;
       padding: 0 32px;
+      margin-bottom: 2rem;
     }
   }
 
