@@ -55,6 +55,7 @@ $border-styles: 2px solid colors.$color-rds-gray-3;
     margin: 0;
   }
   .selected-icon {
+    color: colors.$color-rds-blue-2;
     display: none;
     position: absolute;
     right: 8px;
