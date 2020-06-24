@@ -34,7 +34,6 @@
 
 @include card.core-styles;
 
-$blue-gradient: linear-gradient(303.65deg, #378dc5 2.04%, #{colors.$color-rds-blue-2} 94.79%);
 
 .check-list {
   list-style: none;
@@ -61,7 +60,7 @@ main {
 
 /* Main Body */
 .explorer-tabengine {
-  background-image: url('~/assets/cta-background-opaque-0.1.png'), url('~/assets/cta-background-opaque-0.1.png'), $blue-gradient;
+  background-image: url('~/assets/cta-background-opaque-0.1.png'), url('~/assets/cta-background-opaque-0.1.png'), colors.$gradient-blue;
   background-repeat: no-repeat;
   background-position: bottom -200px left -300px, top -200px right -300px, top left;
   color: #ffffff;
@@ -124,7 +123,7 @@ main {
 
 .section-divider {
   height: 64px;
-  background: $blue-gradient, colors.$color-rds-blue-2;
+  background: colors.$gradient-blue, colors.$color-rds-blue-2;
   border: none;
   margin: 0;
 }

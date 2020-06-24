@@ -3,13 +3,20 @@
   <head>
     <include src="src/shared/_meta.html"></include>
     <title>RDS JS Examples</title>
+    <link rel="stylesheet" href="./styles/index.scss" />
   </head>
 
   <body class="mdc-typography">
     <main>
-      <h1>Rich Data Services</h1>
-      <h2>JavaScript Examples and Showcases</h2>
-      <nav><a href="./covid.html">COVID-19</a></nav>
+      <section class="container">
+        <img alt="Rich Data Services" class="rds-logo" src="~/assets/rds-logo-dark.svg" />
+        <h1 class="mdc-typography--headline2">JavaScript</h1>
+        <h2 class="mdc-typography--headline4">Examples and Showcases</h2>
+        <nav class="example-links">
+          <a class="rds-button-cta-white" href="./covid.html"><include src="src/svg/_double-chevron.html"></include>COVID-19</a>
+          <p class="coming-soon">More coming soon...</p>
+        </nav>
+      </section>
     </main>
     <include src="src/shared/_footer.html"></include>
   </body>
