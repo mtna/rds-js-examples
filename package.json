@@ -46,7 +46,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "@amcharts/amcharts4": "^4.9.16",
+    "@amcharts/amcharts4": "^4.9.23",
     "@material/button": "^6.0.0",
     "@material/card": "^6.0.0",
     "@material/drawer": "^6.0.0",
@@ -60,7 +60,7 @@
     "@rds/sdk": "^1.0.0-alpha.5",
     "@stackblitz/sdk": "^1.3.0",
     "smoothscroll-polyfill": "^0.4.4",
-    "snyk": "^1.321.0"
+    "snyk": "^1.323.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -70,6 +70,7 @@
     "@types/google.visualization": "0.0.52",
     "@types/jest": "^25.2.3",
     "@types/node": "12.12.38",
+    "@types/smoothscroll-polyfill": "^0.3.1",
     "colors": "^1.3.2",
     "commitizen": "^4.1.2",
     "coveralls": "^3.0.2",
@@ -98,7 +99,7 @@
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "alias": {
     "shared": "./src/shared"
