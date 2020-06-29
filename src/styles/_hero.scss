@@ -6,7 +6,7 @@ $tablet-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints
 $mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, tablet)})' !default;
 
 .rds-hero {
-  background-image: url('./assets/bg-squares.png'), url('./assets/bg-squares.png'),
+  background-image: url('../assets/bg-squares.png'), url('../assets/bg-squares.png'),
     linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
   background-repeat: no-repeat, no-repeat, repeat;
   background-position: -410px -150px, calc(100% + 250px) calc(100% + 100px), center;
@@ -16,7 +16,7 @@ $mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints
 
   /* Tablet or smaller */
   @media #{$tablet-and-down} {
-    background-image: url('./assets/bg-squares.png'), linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
+    background-image: url('../assets/bg-squares.png'), linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
     background-position: -550px -150px, calc(100%), center;
     h1 {
       font-size: 3rem;

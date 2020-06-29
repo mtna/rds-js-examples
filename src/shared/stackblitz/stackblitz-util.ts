@@ -56,6 +56,6 @@ export class StackBlitzUtil {
    * @returns raw file contents with relative shared imports.
    */
   private static _replaceSharedPathImports(rawFileContents: string): string {
-    return rawFileContents.replace(/} from 'shared/g, `} from './shared`);
+    return rawFileContents.replace(/} from '~\/shared/g, `} from './shared`);
   }
 }
