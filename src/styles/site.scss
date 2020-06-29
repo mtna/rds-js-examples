@@ -1,0 +1,148 @@
+@use "sass:map";
+@use "./colors";
+
+@use "@material/theme" with (
+  $primary: colors.$color-rds-blue,
+  $on-primary: colors.$color-rds-white
+);
+
+@use './mixins';
+
+@use "@material/layout-grid/mdc-layout-grid";
+@use "@material/layout-grid/mixins" as mdc-mixins;
+@use '@material/layout-grid/variables';
+
+@use "@material/button";
+
+@use "@material/typography/mdc-typography";
+@use "@material/elevation/mdc-elevation";
+
+@import './buttons';
+@import './footer';
+@import './hero';
+@import './need-help';
+
+$large: 1440px;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(242, 242, 242);
+  font-family: Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'phone')}) {
+    font-size: 14px;
+  }
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'tablet')}) {
+    font-size: 14.5px;
+  }
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'desktop')}) {
+    font-size: 15px;
+  }
+}
+
+/* Typography */
+$h1-fontsize: 6rem;
+$h2-fontsize: 3.75rem;
+$h3-fontsize: 3rem;
+$h4-fontsize: 2.125rem;
+$h5-fontsize: 1.5rem;
+$h6-fontsize: 1.25rem;
+h1 {
+  margin: ($h1-fontsize / 1.5) 0 ($h1-fontsize / 2.5) 0;
+}
+h2 {
+  margin: ($h2-fontsize / 1.5) 0 ($h2-fontsize / 2.5) 0;
+}
+h3 {
+  margin: ($h3-fontsize / 1.5) 0 ($h3-fontsize / 2.5) 0;
+}
+h4 {
+  margin: ($h4-fontsize / 1.5) 0 ($h4-fontsize / 2.5) 0;
+}
+h5 {
+  margin: ($h5-fontsize / 1.5) 0 ($h5-fontsize / 2.5) 0;
+}
+h6 {
+  margin: ($h6-fontsize / 1.5) 0 ($h6-fontsize / 2.5) 0;
+}
+
+div.content,
+p {
+  font-size: 18px;
+}
+
+.txt-underline {
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+  }
+}
+
+.text-blue {
+  color: colors.$color-rds-blue;
+}
+
+.text-green {
+  color: colors.$color-rds-secondary;
+}
+
+.text-grey,
+.text-grey svg {
+  color: colors.$color-rds-grey;
+  fill: colors.$color-rds-grey;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+a {
+  color: #039be5;
+  text-decoration: none;
+
+  // Gets rid of tap active state
+  -webkit-tap-highlight-color: transparent;
+}
+
+/** END TYPOGRPHY **/
+
+.container {
+  display: block;
+  max-width: $large;
+  min-width: 280px;
+  width: 87.5%;
+  margin: 0 auto;
+}
+
+.white-raised-button {
+  --mdc-theme-primary: #fff;
+  --mdc-theme-on-primary: #000;
+
+  @include button.ink-color(#000);
+}
+
+.white-outlined-button {
+  --mdc-theme-primary: #000;
+  --mdc-theme-on-primary: #fff;
+
+  @include button.ink-color(#fff);
+  @include button.outline-color(#fff);
+}
