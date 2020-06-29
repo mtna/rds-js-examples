@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "outDir": "./dist/out-tsc",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "rootDir": "src",
     "moduleResolution": "node",
     "module": "esnext",
@@ -37,8 +37,7 @@
     "lib": ["es2017", "dom"],
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "shared/*": ["src/shared/*"],
-      "shared": ["src/shared"]
+      "~*": ["src/*"]
     }
   },
   "include": ["src/**/*.ts"],

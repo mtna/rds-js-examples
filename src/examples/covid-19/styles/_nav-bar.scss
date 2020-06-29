@@ -1,0 +1,67 @@
+@use "sass:map";
+@use "@material/elevation/mixins" as mdc-elevation-mixins;
+@use '@material/layout-grid/variables';
+@use "src/styles/colors";
+
+/* Header */
+.mdc-top-app-bar {
+  top: 0;
+  background-color: colors.$color-rds-white;
+
+  @include mdc-elevation-mixins.elevation(7);
+  .brand-logo {
+    width: 160px;
+  }
+  .large-screen-menu {
+    display: flex;
+    .mdc-button.nav-button {
+      margin: 0 8px;
+    }
+  }
+  .small-screen-menu {
+    display: none;
+  }
+  .mdc-menu-surface {
+    min-width: 275px;
+    button {
+      text-align: left;
+    }
+  }
+  .mdc-icon-button__icon {
+    color: colors.$color-rds-black;
+  }
+}
+
+.mdc-drawer {
+  // Styles needed to open drawer on rightside
+  &.mdc-drawer--modal {
+    left: initial;
+    right: 0;
+  }
+  &.mdc-drawer--animate,
+  &.mdc-drawer--closing {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  &.mdc-drawer--opening {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    a {
+      margin-bottom: 8px;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width : #{map.get(variables.$breakpoints, desktop)}) {
+  .mdc-top-app-bar .small-screen-menu {
+    display: inline;
+  }
+  .mdc-top-app-bar .large-screen-menu {
+    display: none;
+  }
+}

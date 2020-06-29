@@ -1,0 +1,38 @@
+@use "src/styles/colors";
+
+main {
+  background: colors.$gradient-blue, colors.$color-rds-blue-2;
+  color: colors.$color-rds-white;
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.rds-logo {
+  display: block;
+  max-width: 80%;
+  margin: 2rem auto;
+  width: 400px;
+}
+
+.container {
+  text-align: center;
+}
+
+.mdc-typography--headline2 {
+  margin-bottom: 1rem;
+}
+
+.mdc-typography--headline4 {
+  margin-top: 1rem;
+}
+
+.example-links {
+  margin-top: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  & > * {
+    margin: 16px;
+  }
+}
