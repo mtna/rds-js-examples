@@ -27,15 +27,33 @@ export class AmChartsLineUtil {
 
     // Create a new chart and add it to the registry
     const chart = am4core.create(config.elementId, am4charts.XYChart);
+    chart.numberFormatter.numberFormat = '#a';
+    const title = chart.titles.create();
+    if (config.titleUrl) {
+      title.html = '<a target="_blank" href=' + config.titleUrl + '>' + config.chartTitle + '</a>';
+    } else if (config.chartTitle) {
+      title.text = config.chartTitle;
+    }
+
+    if (config.titleSize) {
+      switch (config.titleSize) {
+        case 'small':
+          title.fontSize = 15;
+          title.align = 'right';
+          title.marginRight = 30;
+          title.marginBottom = 8;
+          break;
+        case 'large':
+          title.fontSize = 25;
+          title.marginBottom = 24;
+          break;
+      }
+    }
     this.registry[config.elementId] = chart;
 
     chart.dateFormatter.dateFormat = 'yyyy-MM-dd';
     chart.fontSize = '1em';
-    chart.maskBullets = false;
-    chart.paddingBottom = 0;
-    chart.paddingLeft = 0;
-    chart.paddingRight = 50;
-    chart.paddingTop = 0;
+    chart.paddingRight = 30;
     chart.zoomOutButton.disabled = true;
 
     // Set up x-axis which are dates
@@ -137,6 +155,7 @@ export class AmChartsLineUtil {
 
     series.strokeOpacity = 0.6;
     series.stroke = color;
+    series.strokeWidth = 3;
     series.fill = color;
 
     // Configure tooltip

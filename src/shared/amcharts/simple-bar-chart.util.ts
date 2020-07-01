@@ -8,7 +8,7 @@ import { AmchartsSimpleBarChartConfig } from './amcharts-config';
  * Specifically for creating bar charts from record level COVID-19 data and
  * displaying the total cases for the top 10 countries.
  */
-export class AmChartsBarUtil {
+export class AmChartsSimpleBarUtil {
   /** Registry of all line charts created. Keyed on the html element id. */
   private static registry: { [elementId: string]: am4charts.XYChart } = {};
 

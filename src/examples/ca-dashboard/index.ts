@@ -1,8 +1,11 @@
 import { AmchartsDataSet, HttpResponse } from '@rds/sdk';
-import { AmChartsStackedBarUtil } from './shared/amcharts/stacked-bar-chart.util';
-import { AmChartsLineUtil } from './shared/amcharts/line-chart.util';
-import { CommonAmChartColors } from './shared/amcharts/amcharts-config';
-import { AmChartsClusteredBarUtil } from './shared/amcharts/clustered-bar-chart.util';
+import {
+  AmChartsClusteredBarUtil,
+  AmChartsLineUtil,
+  AmChartsSimpleBarUtil,
+  AmChartsStackedBarUtil,
+  CommonAmChartColors,
+} from '~/shared/amcharts/index';
 import {
   canadaCovid,
   canadaLabour,
@@ -17,7 +20,6 @@ import {
   PERSPECTIVES,
 } from './constants';
 import { SelectUtil } from './shared/material/select.util';
-import { AmChartsBarUtil } from './shared/amcharts/simple-bar-chart.util';
 import { MDCFormField } from '@material/form-field';
 import { MDCRadio } from '@material/radio';
 
@@ -208,11 +210,11 @@ function getPerspectiveData(dims: string, selector: string, questionText: string
       dims,
     })
     .then((res: HttpResponse<AmchartsDataSet>) => {
-      AmChartsBarUtil.disposeChart(selector);
+      AmChartsSimpleBarUtil.disposeChart(selector);
 
       const titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/pums_cpss_01/custom-tables;showTotals=true,true,true,true;sortRows=NATURAL,ASC;sortCols=NATURAL,ASC;filterEmpty=true?rows=${dims}&weights=COVID_WT&measure=COUNT:COUNT(*)`;
 
-      AmChartsBarUtil.createChart({
+      AmChartsSimpleBarUtil.createChart({
         data: res?.parsedBody?.dataProvider,
         elementId: selector,
         chartTitle: questionText,
