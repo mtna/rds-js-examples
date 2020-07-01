@@ -69,6 +69,9 @@ $mobile-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints
     @include mixins.break(map.get(variables.$breakpoints, 'desktop')) {
       width: 40%;
       margin-right: 5%;
+      &.wide-text {
+        width: 50%;
+      }
     }
 
     h1 {

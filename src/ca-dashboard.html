@@ -8,9 +8,9 @@
 
   <body class="mdc-typography">
     <main>
-      <div class="mtna-banner">
-        <div class="mtna-banner-text banner-container">
-          <div class="intro-text">
+      <div class="rds-hero" id="home">
+        <div class="container mdc-layout-grid">
+          <div class="text wide-text">
             <img src="./assets/rds-icon-white.svg" />
             <h1 class="mdc-typography--headline2">
               Canada Surveys Dashboard
@@ -20,15 +20,15 @@
               This Rich Data Services powered dashboard combines data from Canada's
               <a
                 target="_blank"
-                class="text-secondary"
+                class="text-green"
                 href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
               >
                 COVID-19 Case Statistics</a
               >
               ,
-              <a target="_blank" class="text-secondary" href="https://www.statcan.gc.ca/eng/survey/household/3701"> Labour Force Surveys</a>
+              <a target="_blank" class="text-green" href="https://www.statcan.gc.ca/eng/survey/household/3701"> Labour Force Surveys</a>
               and
-              <a target="_blank" class="text-secondary" href="https://www150.statcan.gc.ca/n1/daily-quotidien/200408/dq200408c-eng.htm">
+              <a target="_blank" class="text-green" href="https://www150.statcan.gc.ca/n1/daily-quotidien/200408/dq200408c-eng.htm">
                 the Perspective Survey Series I on Impacts of COVID-19
               </a>
               public use files. It has been designed to demonstrate RDS benefits and flexibility in terms of combining data from multiple
@@ -45,8 +45,7 @@
               This website is intended as a technology showcase and should not be used for any other purposes.
             </p>
           </div>
-          <!-- Remove display: none when we want to add story -->
-          <div class="dev-story-box" style="display: none;">
+          <div class="image" style="display: none;">
             <h3 class="mdc-typography--headline5">Don't know where to start?</h3>
             <ul>
               <li>Which tool, dataset, or library to use for your project?</li>
@@ -214,40 +213,10 @@
         </div>
       </div>
       <div id="map-chart"></div>
+      <include src="src/shared/_need-help.html"></include>
     </main>
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col mtna-footer-left">
-            <div><img class="mtna-footer-logo" src="./assets/footer-logo-mtna.png" /><br /></div>
-            <div>
-              Metadata Technology North America Inc.<br />
-              3915 Papermill Dr., Knoxville, TN 37909, USA
-            </div>
-            <div class="mtna-contact-info">
-              <span>
-                <i class="material-icons">phone</i>
-                + 1 (865) 245-4542 </span
-              ><br />
-              <span>
-                <i class="material-icons">domain</i>
-                <a href="https://www.mtna.us">www.mtna.us</a> </span
-              ><br />
-              <a href="mailto:mtna@mtna.us">
-                <i class="material-icons">email</i>
-                <span>mtna@mtna.us</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mtna-footer-copyright">
-        <!-- <a href="/privacy_policy.html">Privacy Policy</a> -->
-        <!-- <a href="/terms.html">Terms of Use</a> -->
-        <div>© 2019 Metadata Technology North America Inc. All Rights Reserved.</div>
-      </div>
-    </footer>
 
+    <include src="src/shared/_footer.html"></include>
     <script src="./examples/ca-dashboard/index.ts"></script>
   </body>
 </html>
