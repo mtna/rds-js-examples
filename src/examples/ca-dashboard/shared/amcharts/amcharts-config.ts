@@ -1,52 +1,50 @@
 import * as am4core from '@amcharts/amcharts4/core';
 
-/** Config for setting up a bar chart */
-export interface AmchartsBarChartConfig {
+export interface AmchartsChartConfig {
+  chartTitle?: string;
   data: any[] | undefined;
   elementId: string;
-  chartTitle?: string;
   titleUrl?: string;
   titleSize?: 'small' | 'large';
+}
+
+export interface AmchartsBarChartConfig extends AmchartsChartConfig {
   xCategory: string;
   xTitle?: string;
+}
+
+/** Config for setting up a bar chart */
+export interface AmchartsSimpleBarChartConfig extends AmchartsBarChartConfig {
   yCategory: string;
   yTitle?: string;
 }
 
 /** Config for setting up a clustered bar chart */
-export interface AmchartsClusteredBarChartConfig {
-  data: any[] | undefined;
-  elementId: string;
-  chartTitle?: string;
-  titleUrl?: string;
-  titleSize?: 'small' | 'large';
-  yTitle?: string;
-  xCategory: string;
+export interface AmchartsClusteredBarChartConfig extends AmchartsBarChartConfig {
   groups: { value: string; title: string }[];
+  yTitle?: string;
 }
 
 /** Config for setting up a stacked bar chart */
-export interface AmchartsStackedBarChartConfig {
-  data: any[] | undefined;
-  elementId: string;
-  chartTitle?: string;
-  titleUrl?: string;
-  titleSize?: 'small' | 'large';
-  xCategory: string;
-  xTitle?: string;
+export interface AmchartsStackedBarChartConfig extends AmchartsBarChartConfig {
   categories: { key: string; title: string }[];
 }
 
 /**
  * Config for creating heat map
  */
-export interface AmchartsHeatMapConfig {
-  data: any[] | undefined;
-  elementId: string;
-  chartTitle?: string;
+export interface AmchartsHeatMapConfig extends AmchartsBarChartConfig {
   valueCategory?: string;
-  xCategory: string;
   yCategory: string;
+}
+
+/**
+ * Config for creating a date line chart
+ */
+export interface AmchartsDateLineChartConfig extends AmchartsChartConfig {
+  dateName: string;
+  lines: AmchartsLineSeriesConfig[];
+  yTitle: string;
 }
 
 export const CommonAmChartColors = {
@@ -63,20 +61,6 @@ export interface AmchartsLineSeriesConfig {
   color: am4core.Color | am4core.Pattern | am4core.LinearGradient | am4core.RadialGradient;
   name: string;
   value: string;
-}
-
-/**
- * Config for creating a date line chart
- */
-export interface AmchartsDateLineChartConfig {
-  data: any[] | undefined;
-  dateName: string;
-  elementId: string;
-  chartTitle?: string;
-  titleUrl?: string;
-  titleSize?: 'small' | 'large';
-  lines: AmchartsLineSeriesConfig[];
-  yTitle: string;
 }
 
 /* Line Series configuration for AmCharts*/

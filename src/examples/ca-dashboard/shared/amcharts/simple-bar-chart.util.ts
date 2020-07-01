@@ -1,6 +1,6 @@
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
-import { AmchartsBarChartConfig } from './amcharts-config';
+import { AmchartsSimpleBarChartConfig } from './amcharts-config';
 
 /**
  * Utility to interact with the JS charting library, AmCharts.
@@ -17,7 +17,7 @@ export class AmChartsBarUtil {
    * @param elementId HTML element id of the container to embed the chart
    * @param data chart data
    */
-  static createChart(config: AmchartsBarChartConfig) {
+  static createChart(config: AmchartsSimpleBarChartConfig) {
     if (!config.data) {
       return;
     }
