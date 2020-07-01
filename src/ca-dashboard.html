@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include src="src/shared/_meta.html"></include>
+    <title>RDS Canada Demo Dashboard</title>
+    <link rel="stylesheet" href="./examples/ca-dashboard/styles/page.scss" />
+  </head>
+
+  <body class="mdc-typography">
+    <main>
+      <div class="mtna-banner">
+        <div class="mtna-banner-text banner-container">
+          <div class="intro-text">
+            <img src="./assets/rds-icon-white.svg" />
+            <h1 class="mdc-typography--headline2">
+              Canada Surveys Dashboard
+            </h1>
+            <h2 class="mdc-typography--headline4">COVID-19, Labour Force, and Perspectives</h2>
+            <p class="mdc-typography--body1">
+              This Rich Data Services powered dashboard combines data from Canada's
+              <a
+                target="_blank"
+                class="text-secondary"
+                href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
+              >
+                COVID-19 Case Statistics</a
+              >
+              ,
+              <a target="_blank" class="text-secondary" href="https://www.statcan.gc.ca/eng/survey/household/3701"> Labour Force Surveys</a>
+              and
+              <a target="_blank" class="text-secondary" href="https://www150.statcan.gc.ca/n1/daily-quotidien/200408/dq200408c-eng.htm">
+                the Perspective Survey Series I on Impacts of COVID-19
+              </a>
+              public use files. It has been designed to demonstrate RDS benefits and flexibility in terms of combining data from multiple
+              sources for visualization or story telling puposes and rapid design.
+            </p>
+            <a class="rds-button-secondary-small" href="https://covid19.richdataservices.com/" target="_blank">
+              <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>
+              RDS COVID-19 Project
+            </a>
+            <a class="rds-button-flat-white" href="https://www.richdataservices.com" target="_blank">
+              <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>What is RDS?
+            </a>
+            <p class="banner-footnote mdc-typography--caption">
+              This website is intended as a technology showcase and should not be used for any other purposes.
+            </p>
+          </div>
+          <!-- Remove display: none when we want to add story -->
+          <div class="dev-story-box" style="display: none;">
+            <h3 class="mdc-typography--headline5">Don't know where to start?</h3>
+            <ul>
+              <li>Which tool, dataset, or library to use for your project?</li>
+              <li>What is "data as a service" or an API?</li>
+              <li>Confused by too many options?</li>
+            </ul>
+            <p>
+              We completely understand. Just click below to access our knowledge base or open a ticket, we'll get you underway.
+            </p>
+            <div>
+              <a href="https://mtnaus.atlassian.net/wiki/spaces/RDSHD/overview" target="_blank" class="rds-button-flat-white">
+                Open Free Help Ticket
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-containers">
+        <div class="left-container container">
+          <h2 class="mdc-typography--headline4">COVID-19 Cases vs Labour Force Surveys Employment Status</h2>
+          <h4 class="mdc-typography--subtitle1">
+            Use options to select geography or adjust LFS visualization. Use link to jump to the underlying data table or microdata.
+          </h4>
+          <div class="chart-controls">
+            <div class="select-container">
+              <div class="mdc-select province-select">
+                <div class="mdc-select__anchor">
+                  <span class="mdc-select__ripple"></span>
+                  <input type="text" disabled readonly class="mdc-select__selected-text" placeholder="Select Province" />
+                  <i class="mdc-select__dropdown-icon"></i>
+                  <span class="mdc-floating-label mdc-floating-label--float-above">
+                    Province
+                  </span>
+                  <span class="mdc-line-ripple"></span>
+                </div>
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul class="mdc-list">
+                    <li aria-selected="true" class="mdc-list-item mdc-list-item--selected" data-value="all">
+                      <span class="mdc-list-item__text">
+                        All Provinces
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="chart-type-radio">
+              <label for="radio-group" class="control-label">Employment Status Visualization</label>
+              <div style="display: flex;">
+                <div class="mdc-form-field clustered-form-field">
+                  <div class="mdc-radio clustered-radio">
+                    <input class="mdc-radio__native-control" type="radio" id="radio-2" name="radios" checked />
+                    <div class="mdc-radio__background">
+                      <div class="mdc-radio__outer-circle"></div>
+                      <div class="mdc-radio__inner-circle"></div>
+                    </div>
+                    <div class="mdc-radio__ripple"></div>
+                  </div>
+                  <label for="radio-1">Clustered</label>
+                </div>
+                <div class="mdc-form-field stacked-form-field">
+                  <div class="mdc-radio stacked-radio">
+                    <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios" />
+                    <div class="mdc-radio__background">
+                      <div class="mdc-radio__outer-circle"></div>
+                      <div class="mdc-radio__inner-circle"></div>
+                    </div>
+                    <div class="mdc-radio__ripple"></div>
+                  </div>
+                  <label for="radio-1">Stacked</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <div id="covid-chart" class="chart"></div>
+          </div>
+          <div class="chart-container lfs-container">
+            <div id="lfs-chart" class="chart"></div>
+          </div>
+          <div style="display: flex;">
+            <p style="margin-right: 32px;">
+              Sources:
+              <a href="https://www.statcan.gc.ca/eng/survey/household/3701" target="_blank">Canadian COVID-19 Confirmed Cases</a>
+              (<a href="https://covid19.richdataservices.com/rds-explorer/explore/ca/ca_gov_cases/data" target="_blank">explore</a>) &amp;
+              <a href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html" target="_blank"
+                >Canadian Labour Force Statistics</a
+              >
+              (<a href="https://covid19.richdataservices.com/rds-explorer/explore/ca/pums_lfs/data" target="_blank">explore</a>)
+            </p>
+          </div>
+        </div>
+        <div class="right-container container">
+          <h2 class="mdc-typography--headline5">
+            Canadian Perspectives Survey I: Impacts of COVID-19
+          </h2>
+          <h4 class="mdc-typography--subtitle2">
+            Data collected between March 29 and April from 4,600 respondents across 10 provinces. Use dropdown to select a survey question.
+          </h4>
+          <div class="chart-1 small-chart">
+            <div class="chart-header">
+              <div class="mdc-select perspective-select">
+                <div class="mdc-select__anchor">
+                  <span class="mdc-select__ripple"></span>
+                  <input type="text" disabled readonly class="mdc-select__selected-text" placeholder="Select Variable" />
+                  <i class="mdc-select__dropdown-icon"></i>
+                  <span class="mdc-floating-label mdc-floating-label--float-above">
+                    Variable
+                  </span>
+                  <span class="mdc-line-ripple"></span>
+                </div>
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul class="mdc-list"></ul>
+                </div>
+              </div>
+            </div>
+            <div id="perspective-chart-1" class="chart-container"></div>
+          </div>
+          <div class="chart-2 small-chart">
+            <div class="chart-header">
+              <div class="mdc-select perspective-select-2">
+                <div class="mdc-select__anchor">
+                  <span class="mdc-select__ripple"></span>
+                  <input type="text" disabled readonly class="mdc-select__selected-text" placeholder="Select Variable" />
+                  <i class="mdc-select__dropdown-icon"></i>
+                  <span class="mdc-floating-label mdc-floating-label--float-above">
+                    Variable
+                  </span>
+                  <span class="mdc-line-ripple"></span>
+                </div>
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul class="mdc-list"></ul>
+                </div>
+              </div>
+            </div>
+            <div id="perspective-chart-2" class="chart-container"></div>
+          </div>
+          <div class="chart-3 small-chart">
+            <div class="chart-header">
+              <div class="mdc-select perspective-select-3">
+                <div class="mdc-select__anchor">
+                  <span class="mdc-select__ripple"></span>
+                  <input type="text" disabled readonly class="mdc-select__selected-text" placeholder="Select Variable" />
+                  <i class="mdc-select__dropdown-icon"></i>
+                  <span class="mdc-floating-label mdc-floating-label--float-above">
+                    Variable
+                  </span>
+                  <span class="mdc-line-ripple"></span>
+                </div>
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul class="mdc-list"></ul>
+                </div>
+              </div>
+            </div>
+            <div id="perspective-chart-3" class="chart-container"></div>
+          </div>
+          <p>
+            Source:
+            <a href="https://www150.statcan.gc.ca/n1/daily-quotidien/200408/dq200408c-eng.htm" target="_blank"
+              >Canadian Perspectives Survey I: Impacts of COVID-19</a
+            >
+            (<a href="https://covid19.richdataservices.com/rds-explorer/explore/ca/pums_cpss_01/data" target="_blank">explore</a>)
+          </p>
+        </div>
+      </div>
+      <div id="map-chart"></div>
+    </main>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col mtna-footer-left">
+            <div><img class="mtna-footer-logo" src="./assets/footer-logo-mtna.png" /><br /></div>
+            <div>
+              Metadata Technology North America Inc.<br />
+              3915 Papermill Dr., Knoxville, TN 37909, USA
+            </div>
+            <div class="mtna-contact-info">
+              <span>
+                <i class="material-icons">phone</i>
+                + 1 (865) 245-4542 </span
+              ><br />
+              <span>
+                <i class="material-icons">domain</i>
+                <a href="https://www.mtna.us">www.mtna.us</a> </span
+              ><br />
+              <a href="mailto:mtna@mtna.us">
+                <i class="material-icons">email</i>
+                <span>mtna@mtna.us</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mtna-footer-copyright">
+        <!-- <a href="/privacy_policy.html">Privacy Policy</a> -->
+        <!-- <a href="/terms.html">Terms of Use</a> -->
+        <div>© 2019 Metadata Technology North America Inc. All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <script src="./examples/ca-dashboard/index.ts"></script>
+  </body>
+</html>

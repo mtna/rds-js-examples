@@ -1,0 +1,195 @@
+@use "sass:map";
+@use "src/styles/colors";
+
+@use "@material/theme" with (
+  $primary: colors.$color-rds-blue,
+  $on-primary: colors.$color-rds-white
+);
+
+@use 'src/styles/mixins';
+@use 'src/styles/buttons';
+@use './footer';
+
+@use "@material/layout-grid/mdc-layout-grid";
+@use "@material/layout-grid/mixins" as mdc-mixins;
+@use '@material/layout-grid/variables';
+
+@use "@material/typography/mdc-typography";
+@use "@material/elevation/mdc-elevation";
+@use "@material/list/mdc-list";
+@use "@material/menu-surface/mdc-menu-surface";
+@use "@material/menu/mdc-menu";
+@use "@material/form-field/mdc-form-field";
+@use "@material/radio/mdc-radio";
+@use "@material/select/mdc-select";
+
+$large: 1440px;
+
+$blue-gradient: linear-gradient(303.65deg, #378dc5 2.04%, #{colors.$color-rds-blue-2} 94.79%);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+body {
+  background: rgb(242, 242, 242);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'phone')}) {
+    font-size: 14px;
+  }
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'tablet')}) {
+    font-size: 14.5px;
+  }
+
+  @media only screen and (min-width: #{map.get(variables.$breakpoints, 'desktop')}) {
+    font-size: 15px;
+  }
+}
+
+a {
+  color: colors.$color-rds-blue;
+  text-decoration: none;
+
+  // Gets rid of tap active state
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Typography */
+$h1-fontsize: 6rem;
+$h2-fontsize: 3.75rem;
+$h3-fontsize: 3rem;
+$h4-fontsize: 2.125rem;
+$h5-fontsize: 1.5rem;
+$h6-fontsize: 1.25rem;
+h1 {
+  margin: ($h1-fontsize / 1.5) 0 ($h1-fontsize / 2.5) 0;
+}
+h2 {
+  margin: ($h2-fontsize / 1.5) 0 ($h2-fontsize / 2.5) 0;
+}
+h3 {
+  margin: ($h3-fontsize / 1.5) 0 ($h3-fontsize / 2.5) 0;
+}
+h4 {
+  margin: ($h4-fontsize / 1.5) 0 ($h4-fontsize / 2.5) 0;
+}
+h5 {
+  margin: ($h5-fontsize / 1.5) 0 ($h5-fontsize / 2.5) 0;
+}
+h6 {
+  margin: ($h6-fontsize / 1.5) 0 ($h6-fontsize / 2.5) 0;
+}
+
+.chart-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  .container {
+    padding: 32px;
+    h2 {
+      margin: 8px;
+    }
+    h4 {
+      margin: 0 8px 16px;
+    }
+    .chart-header {
+      display: flex;
+      flex-direction: column;
+      .mdc-select .mdc-select__anchor {
+        width: 100%;
+      }
+    }
+    &.left-container {
+      width: 65%;
+      .chart-controls {
+        display: flex;
+        .chart-type-radio {
+          display: flex;
+          flex-direction: column;
+          margin-left: 48px;
+          .control-label {
+            font-size: 12px;
+          }
+          .clustered-form-field {
+            margin-right: 8px;
+          }
+        }
+      }
+      .chart-container {
+        display: flex;
+        height: 450px;
+        .chart {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    &.right-container {
+      background-color: rgba(0, 0, 0, 0.08);
+      width: 35%;
+      .small-chart {
+        margin-bottom: 32px;
+        .chart-container {
+          height: 300px;
+        }
+      }
+    }
+  }
+}
+
+.mtna-banner {
+  background-image: url('~/assets/bg-squares.png'), url('~/assets/bg-squares.png'),
+    linear-gradient(294.19deg, #378dc5 2.04%, #1865a3 94.79%);
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-position: -410px -150px, calc(100% + 250px) calc(100% + 100px), center;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  padding: 32px 128px;
+  width: 100%;
+
+  h1 {
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.41;
+    margin: 0;
+  }
+  h2 {
+    color: #fff;
+    margin: 0;
+    text-align: left;
+  }
+  .banner-container {
+    color: white;
+    display: flex;
+    z-index: 1;
+    img {
+      height: 124px;
+    }
+    & > div {
+      width: 45%;
+    }
+    .dev-story-box {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      margin: 32px 0;
+      padding: 32px;
+    }
+  }
+  .banner-footnote {
+    margin-top: 16px;
+  }
+  .text-secondary {
+    color: #80bd01;
+    fill: #80bd01;
+  }
+}
