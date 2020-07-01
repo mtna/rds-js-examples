@@ -1,10 +1,16 @@
 import { MDCSelect } from '@material/select';
 
+/**
+ * Used when creating the drop down options for select component
+ */
 export interface SelectOption {
   name: string;
   value: string;
 }
 
+/**
+ * Initializes material select component. Will also create options if provided.
+ */
 export class SelectUtil {
   static initializeSelect(selectClass: string, options?: SelectOption[]) {
     const selectElement = document.querySelector(selectClass);

@@ -1,4 +1,8 @@
+import { MDCFormField } from '@material/form-field';
+import { MDCRadio } from '@material/radio';
+
 import { AmchartsDataSet, HttpResponse } from '@rds/sdk';
+
 import {
   AmChartsClusteredBarUtil,
   AmChartsLineUtil,
@@ -6,6 +10,8 @@ import {
   AmChartsStackedBarUtil,
   CommonAmChartColors,
 } from '~/shared/amcharts/index';
+import { SelectUtil } from '~/shared/material/select.util';
+
 import {
   canadaCovid,
   canadaLabour,
@@ -19,9 +25,6 @@ import {
   PERCEIVED_SETUP,
   PERSPECTIVES,
 } from './constants';
-import { SelectUtil } from './shared/material/select.util';
-import { MDCFormField } from '@material/form-field';
-import { MDCRadio } from '@material/radio';
 
 let selectedBar = 'clustered';
 let selectedProvince = 'all';
