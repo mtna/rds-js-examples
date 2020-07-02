@@ -21,10 +21,15 @@
 @use "@material/radio/mdc-radio";
 @use "@material/select/mdc-select";
 
+@import './hero';
+
+$tablet-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, desktop)})' !default;
+
 .chart-containers {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+
   .container {
     padding: 32px;
     h2 {
@@ -74,6 +79,15 @@
           height: 300px;
         }
       }
+    }
+  }
+
+  /* Tablet or smaller */
+  @media #{$tablet-and-down} {
+    flex-direction: column;
+    .container.left-container,
+    .container.right-container {
+      width: 90%;
     }
   }
 }
