@@ -1,6 +1,6 @@
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
-import { AmchartsBarChartConfig } from './amcharts-config';
+import { AmchartsClusteredBarChartConfig } from './amcharts-config';
 
 /**
  * Utility to interact with the JS charting library, AmCharts.
@@ -8,7 +8,7 @@ import { AmchartsBarChartConfig } from './amcharts-config';
  * Specifically for creating bar charts from record level COVID-19 data and
  * displaying the total cases for the top 10 countries.
  */
-export class AmChartsBarUtil {
+export class AmChartsClusteredBarUtil {
   /** Registry of all line charts created. Keyed on the html element id. */
   private static registry: { [elementId: string]: am4charts.XYChart } = {};
 
@@ -17,7 +17,7 @@ export class AmChartsBarUtil {
    * @param elementId HTML element id of the container to embed the chart
    * @param data chart data
    */
-  static createChart(config: AmchartsBarChartConfig) {
+  static createChart(config: AmchartsClusteredBarChartConfig) {
     if (!config.data) {
       return;
     }
@@ -26,9 +26,31 @@ export class AmChartsBarUtil {
 
     // Create a new chart and add it to the registry
     const chart = am4core.create(config.elementId, am4charts.XYChart);
+    chart.numberFormatter.numberFormat = '#a';
+    const title = chart.titles.create();
+    if (config.titleUrl) {
+      title.html = '<a target="_blank" href=' + config.titleUrl + '>' + config.chartTitle + '</a>';
+    } else if (config.chartTitle) {
+      title.text = config.chartTitle;
+    }
+
+    if (config.titleSize) {
+      switch (config.titleSize) {
+        case 'small':
+          title.fontSize = 15;
+          title.align = 'right';
+          title.marginRight = 30;
+          title.marginBottom = 8;
+          break;
+        case 'large':
+          title.fontSize = 25;
+          title.marginBottom = 24;
+          break;
+      }
+    }
     this.registry[config.elementId] = chart;
 
-    this.createBarChart(chart, config.data, config.xCategory, config.xTitle, config.yCategory, config.yTitle);
+    this.createBarChart(chart, config.data, config.yTitle, config.xCategory, config.groups);
   }
 
   /**
@@ -45,35 +67,31 @@ export class AmChartsBarUtil {
   private static createBarChart(
     chart: am4charts.XYChart,
     data: any[],
+    yTitle: string | undefined,
     xCategory: string,
-    xTitle: string | undefined,
-    yCategory: string,
-    yTitle: string | undefined
+    groups: { value: string; title: string }[]
   ) {
-    // Set up the x-axis which are countries
-    const xAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    xAxis.dataFields.category = xCategory;
-    if (xTitle) {
-      xAxis.title.text = xTitle;
-    }
-    xAxis.renderer.grid.template.location = 0;
-    xAxis.renderer.minGridDistance = 35;
-    xAxis.renderer.labels.template.adapter.add('dy', (dy, target) => {
-      if (target.dataItem && target.dataItem.index === 2) {
-        return (dy || 0) + 25;
-      }
-      return dy;
-    });
+    // Create axes
+    const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = xCategory;
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.cellStartLocation = 0.1;
+    categoryAxis.renderer.cellEndLocation = 0.9;
 
-    // Set up the y-axis which are numeric values
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = 'Total Cases';
+    valueAxis.title.text = yTitle ? yTitle : '';
+    valueAxis.renderer.opposite = true;
 
-    // Add the three column series
-    this.addColumnSeries(chart, yTitle ? yTitle : 'Total', yCategory, xCategory);
+    // Add the columns
+    groups.forEach((group) => {
+      this.addSeries(chart, group.title, group.value, xCategory);
+    });
 
     // Pass the data to the chart
     chart.data = data;
+
+    // Legend
+    chart.legend = new am4charts.Legend();
   }
 
   /**
@@ -85,17 +103,13 @@ export class AmChartsBarUtil {
    * @param categoryX name of the field in data that holds category for horizontal axis.
    * @returns the new column series
    */
-  private static addColumnSeries(chart: am4charts.XYChart, name: string, valueY: string, categoryX: string): am4charts.ColumnSeries {
+  private static addSeries(chart: am4charts.XYChart, name: string, valueY: string, categoryX: string) {
     const series = chart.series.push(new am4charts.ColumnSeries());
-    series.name = name;
     series.dataFields.valueY = valueY;
     series.dataFields.categoryX = categoryX;
-    series.columns.template.tooltipText = name + ': [bold]{valueY}[/]';
-
-    const columnTemplate = series.columns.template;
-    columnTemplate.strokeWidth = 2;
-    columnTemplate.strokeOpacity = 1;
-
-    return series;
+    series.name = name;
+    series.columns.template.tooltipText = '{name}: [bold]{valueY}[/]';
+    series.columns.template.height = am4core.percent(100);
+    series.sequencedInterpolation = true;
   }
 }

@@ -1,0 +1,93 @@
+@use "sass:map";
+@use "src/styles/colors";
+
+@use "@material/theme" with (
+  $primary: colors.$color-rds-blue,
+  $on-primary: colors.$color-rds-white
+);
+
+@use 'src/styles/mixins';
+
+@use "@material/layout-grid/mdc-layout-grid";
+@use "@material/layout-grid/mixins" as mdc-mixins;
+@use '@material/layout-grid/variables';
+
+@use "@material/typography/mdc-typography";
+@use "@material/elevation/mdc-elevation";
+@use "@material/list/mdc-list";
+@use "@material/menu-surface/mdc-menu-surface";
+@use "@material/menu/mdc-menu";
+@use "@material/form-field/mdc-form-field";
+@use "@material/radio/mdc-radio";
+@use "@material/select/mdc-select";
+
+@import './hero';
+
+$tablet-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, desktop)})' !default;
+
+.chart-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .container {
+    padding: 32px;
+    h2 {
+      margin: 8px;
+    }
+    h4 {
+      margin: 0 8px 16px;
+    }
+    .chart-header {
+      display: flex;
+      flex-direction: column;
+      .mdc-select .mdc-select__anchor {
+        width: 100%;
+      }
+    }
+    &.left-container {
+      width: 65%;
+      .chart-controls {
+        display: flex;
+        .chart-type-radio {
+          display: flex;
+          flex-direction: column;
+          margin-left: 48px;
+          .control-label {
+            font-size: 12px;
+          }
+          .clustered-form-field {
+            margin-right: 8px;
+          }
+        }
+      }
+      .chart-container {
+        display: flex;
+        height: 450px;
+        .chart {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    &.right-container {
+      background-color: rgba(0, 0, 0, 0.08);
+      width: 35%;
+      .small-chart {
+        margin-bottom: 32px;
+        .chart-container {
+          height: 300px;
+        }
+      }
+    }
+  }
+
+  /* Tablet or smaller */
+  @media #{$tablet-and-down} {
+    flex-direction: column;
+    .container.left-container,
+    .container.right-container {
+      width: 90%;
+    }
+  }
+}

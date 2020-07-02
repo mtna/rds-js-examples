@@ -1,0 +1,15 @@
+@use "sass:map";
+
+@use '@material/layout-grid/variables';
+
+$tablet-and-down: 'only screen and (max-width : #{map.get(variables.$breakpoints, desktop)})' !default;
+
+.rds-hero {
+  .text {
+    width: 70%;
+    /* Tablet or smaller */
+    @media #{$tablet-and-down} {
+      width: 100%;
+    }
+  }
+}

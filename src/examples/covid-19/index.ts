@@ -13,9 +13,7 @@ import {
   RdsTabulateParameters,
 } from '@rds/sdk';
 import smoothscroll from 'smoothscroll-polyfill';
-import { AMCHARTS_LINE_SERIES } from '~/shared/amcharts/amcharts-config';
-import { AmChartsHeatUtil } from '~/shared/amcharts/heat-map.util';
-import { AmChartsLineUtil } from '~/shared/amcharts/line-chart.util';
+import { AMCHARTS_LINE_SERIES, AmChartsHeatUtil, AmChartsLineUtil } from '~/shared/amcharts/index';
 import { GoogleChartLineUtil } from '~/shared/gcharts/line-chart.util';
 import { ChartType } from '~/shared/models/chart-type';
 import { PlotlyChartUtil } from '~/shared/plotly/chart.util';
