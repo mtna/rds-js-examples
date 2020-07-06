@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include src="src/shared/_meta.html"></include>
+    <title>Google Mobility RDS</title>
+    <link rel="stylesheet" href="./examples/google-mobility/styles/page.scss" />
+  </head>
+
+  <body class="mdc-typography">
+    <main>
+      <div class="rds-hero" id="home">
+        <div class="container mdc-layout-grid">
+          <div class="text">
+            <h2 class="mdc-typography--headline4">
+              Google Mobility
+            </h2>
+            <a class="rds-button-flat-white" href="https://www.richdataservices.com" target="_blank">
+              <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>What is RDS?
+            </a>
+          </div>
+          <div class="image">
+            <img src="./assets/sample-code.png" alt="Example of API code using the RDS API" />
+          </div>
+        </div>
+      </div>
+
+      <include src="src/shared/_need-help.html"></include>
+    </main>
+    <include src="src/shared/_footer.html"></include>
+    <!-- May or may not need these depending on the charting library used -->
+    <!-- <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      google.charts.load('current', { packages: ['corechart'] });
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="./examples/google-mobility/index.ts"></script>
+  </body>
+</html>
