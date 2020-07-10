@@ -24,15 +24,64 @@
         </div>
       </div>
 
+      <div class="chart-container">
+
+        <div class="control-section">
+          <h4 class="mdc-typography--headline4 text-blue">Industry changes by location</h4>
+          <p class="mat-typography--body1">
+            The Community Mobility Reports reflect the changes in response to policies aimed at combating COVID-19. The reports chart movements
+            over time by geography, and across different places such as retail and recreation, groceries and pharmacies, parks, transit stations, workplaces,
+            and residential.
+          </p>
+          <!-- COUNTRY SELECT -->
+          <div class="mdc-select country-select">
+            <div class="mdc-select__anchor">
+              <span class="mdc-select__ripple"></span>
+              <input type="text" disabled readonly class="mdc-select__selected-text" />
+              <i class="mdc-select__dropdown-icon"></i>
+              <span class="mdc-floating-label mdc-floating-label--float-above">Country</span>
+              <span class="mdc-line-ripple"></span>
+            </div>
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-list">
+                <!-- COUNTRY OPTIONS DYNAMICALLY PLACED HERE -->
+              </ul>
+            </div>
+          </div>
+          <!-- DIVISION SELECT -->
+          <div class="mdc-select division-select">
+            <div class="mdc-select__anchor">
+              <span class="mdc-select__ripple"></span>
+              <input type="text" disabled readonly class="mdc-select__selected-text" />
+              <i class="mdc-select__dropdown-icon"></i>
+              <span class="mdc-floating-label mdc-floating-label--float-above">Subdivision</span>
+              <span class="mdc-line-ripple"></span>
+            </div>
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-list">
+                <!-- COUNTRY OPTIONS DYNAMICALLY PLACED HERE -->
+              </ul>
+            </div>
+          </div>
+
+          <div class="checkbox-section">
+            <include src="src/examples/google-mobility/_checkboxes.html"></include>
+          </div>
+        </div>
+
+        <!-- LINE CHART -->
+        <div id="line-chart-div-r-r" class="chart-div"></div>
+      </div>
+      <hr class="section-divider" style="margin-top: 64px;" />
       <include src="src/shared/_need-help.html"></include>
     </main>
     <include src="src/shared/_footer.html"></include>
     <!-- May or may not need these depending on the charting library used -->
-    <!-- <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
       google.charts.load('current', { packages: ['corechart'] });
     </script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="./examples/google-mobility/index.ts"></script>
   </body>
 </html>

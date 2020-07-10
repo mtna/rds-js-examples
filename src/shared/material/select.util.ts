@@ -27,8 +27,12 @@ export class SelectUtil {
     }
   }
 
-  static addSelectOptions(selectElement: Element, options: SelectOption[]) {
-    const ul = selectElement.querySelector('.mdc-list');
+  static addSelectOptions(selectElement: Element | string, options: SelectOption[]) {
+    let element: Element = selectElement as Element;
+    if (typeof selectElement === 'string') {
+      element = document.querySelector(selectElement) as Element;
+    }
+    const ul = element.querySelector('.mdc-list');
 
     options.forEach((option) => {
       const li = document.createElement('li');
@@ -40,5 +44,19 @@ export class SelectUtil {
       li.appendChild(span);
       ul?.appendChild(li);
     });
+  }
+
+  static clearSelectOptions(selectClass: string) {
+    const select = document.querySelector(selectClass);
+    if (select) {
+      const ul = select.querySelector('.mdc-list');
+
+      if (ul) {
+        const options = ul.querySelectorAll('.mdc-list-item');
+        if (options) {
+          options.forEach((o) => o.remove());
+        }
+      }
+    }
   }
 }

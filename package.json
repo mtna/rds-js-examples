@@ -49,6 +49,7 @@
     "@amcharts/amcharts4": "^4.9.23",
     "@material/button": "^6.0.0",
     "@material/card": "^6.0.0",
+    "@material/checkbox": "^7.0.0",
     "@material/drawer": "^6.0.0",
     "@material/elevation": "^6.0.0",
     "@material/form-field": "7.0.0",
