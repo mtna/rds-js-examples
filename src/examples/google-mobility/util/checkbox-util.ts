@@ -8,12 +8,12 @@ export class CheckboxUtil {
     const container = document.querySelector(containerSelector);
     if (container) {
       const boxes = [
-        new MDCCheckbox(container.querySelector('.retail-box')!),
-        new MDCCheckbox(container.querySelector('.grocery-box')!),
-        new MDCCheckbox(container.querySelector('.parks-box')!),
-        new MDCCheckbox(container.querySelector('.transit-box')!),
-        new MDCCheckbox(container.querySelector('.work-box')!),
-        new MDCCheckbox(container.querySelector('.resident-box')!),
+        new MDCCheckbox(container.querySelector('.retail-box') as Element),
+        new MDCCheckbox(container.querySelector('.grocery-box') as Element),
+        new MDCCheckbox(container.querySelector('.parks-box') as Element),
+        new MDCCheckbox(container.querySelector('.transit-box') as Element),
+        new MDCCheckbox(container.querySelector('.work-box') as Element),
+        new MDCCheckbox(container.querySelector('.resident-box') as Element),
       ];
 
       const fields = [

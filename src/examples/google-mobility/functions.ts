@@ -1,3 +1,4 @@
+import { Datum, Record } from '@mtna/data-core-ui';
 import { Code } from '@mtna/pojo-consumer-ui';
 import { GchartsDataSet, RdsTabulateParameters } from '@rds/sdk';
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
@@ -14,7 +15,7 @@ const VARIABLE_LABELS: { [id: string]: string } = {
 };
 
 export function convertDateColumnTypeToDate(data: GchartsDataSet): GchartsDataSet {
-  const dateIndex = data.cols.findIndex((c) => c.id === 'date_stamp')!;
+  const dateIndex = data.cols.findIndex((c) => c.id === 'date_stamp');
   return {
     ...data,
     cols: data.cols.map((c) => (c.id === 'date_stamp' ? { ...c, type: 'date' } : c)),
@@ -28,12 +29,12 @@ export function convertDateColumnTypeToDate(data: GchartsDataSet): GchartsDataSe
 export function filterUnchecked(data: GchartsDataSet, checkboxes: { [id: string]: boolean }) {
   const indexes: { [index: number]: boolean } = {};
   data.cols.forEach((col, index) => {
-    if (!checkboxes[col.id!]) {
+    if (!checkboxes[col.id || '']) {
       indexes[index] = true;
     }
   });
-  const cols = data.cols.filter((c, i) => !indexes[i]);
-  const rows = data.rows.map((r) => ({ ...r, c: r.c.filter((rc, i) => !indexes[i]) }));
+  const cols = data.cols.filter((_, i) => !indexes[i]);
+  const rows = data.rows.map((r) => ({ ...r, c: r.c.filter((_, i) => !indexes[i]) }));
   return { ...data, cols, rows };
 }
 
@@ -70,14 +71,14 @@ export function renderChart(data: GchartsDataSet, config: Omit<GoogleLineChartCo
   }
 }
 
-export function findUniqueCodes(dataSet: { records: any[] }): Code[] {
+export function findUniqueCodes(dataSet: { records: Record[] }): Code[] {
   if (dataSet.records?.length) {
     const uniqueCodes = new Map<string, Code>();
     dataSet.records.forEach((record) => {
       if (record.unit && record.unit.data?.length) {
         record.unit.data
-          .filter((datum) => datum.value?.codeValue)
-          .forEach((datum) => {
+          .filter((datum: Datum<Code>) => datum.value?.codeValue)
+          .forEach((datum: Datum<Code>) => {
             if (!uniqueCodes.has(datum.value.codeValue)) {
               uniqueCodes.set(datum.value.codeValue, datum.value);
             }
@@ -90,6 +91,6 @@ export function findUniqueCodes(dataSet: { records: any[] }): Code[] {
 }
 
 function convertColumnLabels(data: GchartsDataSet): GchartsDataSet {
-  const cols = data.cols.map((c) => ({ ...c, label: VARIABLE_LABELS[c.id!] }));
+  const cols = data.cols.map((c) => ({ ...c, label: VARIABLE_LABELS[c.id || ''] }));
   return { ...data, cols };
 }

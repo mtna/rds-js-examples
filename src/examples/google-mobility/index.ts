@@ -68,12 +68,14 @@ HttpUtil.get<Code[]>(
   // Initialize the Country Selector
   countrySelect = SelectUtil.initializeSelect(
     '.country-select',
-    countryCodes.map((c) => ({ value: c.uri!, name: c.name! }))
+    countryCodes.map((c) => ({ value: c.uri || '', name: c.name || '' }))
   );
   divisionSelect = SelectUtil.initializeSelect('.division-select');
   if (!!countrySelect) {
     // countrySelect.value = countryCodes[0].uri!;
     countrySelect.listen('MDCSelect:change', () => {
+      // We've already established that countrySelect is not null
+      // tslint:disable-next-line:no-non-null-assertion
       selectedCountry = countryCodes[countrySelect!.selectedIndex];
 
       if (countriesWithDivision[selectedCountry.codeValue]) {
@@ -103,14 +105,18 @@ HttpUtil.get<Code[]>(
 
   if (!!divisionSelect) {
     divisionSelect.listen('MDCSelect:change', () => {
+      // We've already established divisionSelect is not null
+      // tslint:disable-next-line:no-non-null-assertion
       const selectedDivision = divisionCodes[divisionSelect!.selectedIndex];
-      countriesDataProduct
-        .tabulate<GchartsDataSet>(generateTabulateParams(selectedCountry!, ['iso3166_2', selectedDivision]))
-        .then((res) => {
-          if (res.parsedBody) {
-            renderChart(res.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
-          }
-        });
+      if (!!selectedCountry) {
+        countriesDataProduct
+          .tabulate<GchartsDataSet>(generateTabulateParams(selectedCountry, ['iso3166_2', selectedDivision]))
+          .then((response) => {
+            if (response.parsedBody) {
+              renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
+            }
+          });
+      }
     });
   }
 });
@@ -118,7 +124,7 @@ HttpUtil.get<Code[]>(
 function handleCountrySelection(country: Code) {
   if (!!divisionSelect) {
     countriesDataProduct
-      .tabulate<{ records: Array<any> }>({
+      .tabulate<{ records: any[] }>({
         dims: 'iso3166_2',
         where: `iso3166_1=${country.codeValue}`,
         format: 'mtna',
@@ -126,12 +132,14 @@ function handleCountrySelection(country: Code) {
       })
       .then((res) => {
         // renderChart(res.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
-        const codes = findUniqueCodes(res.parsedBody!);
-        divisionCodes = codes;
-        SelectUtil.addSelectOptions(
-          '.division-select',
-          codes.map((c) => ({ name: c.name!, value: c.codeValue }))
-        );
+        if (res.parsedBody) {
+          const codes = findUniqueCodes(res.parsedBody);
+          divisionCodes = codes;
+          SelectUtil.addSelectOptions(
+            '.division-select',
+            codes.map((c) => ({ name: c.name || '', value: c.codeValue }))
+          );
+        }
       });
   }
 }
