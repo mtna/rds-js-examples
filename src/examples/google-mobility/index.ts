@@ -15,8 +15,86 @@ export const intCatalog = new RdsCatalog(mobilityServer, 'int');
 // Initialize DataProduct for the Country Mobility Reports
 export const countriesDataProduct = new RdsDataProduct(intCatalog, 'google_mobility');
 const countriesWithDivision: { [code: string]: boolean } = {
+  AE: true,
+  AG: true,
+  AO: true,
+  AR: true,
+  AT: true,
+  AU: true,
+  BB: true,
+  BE: true,
+  BF: true,
+  BG: true,
+  BJ: true,
+  BO: true,
+  BR: true,
+  BS: true,
+  BZ: true,
+  CA: true,
+  CH: true,
+  CI: true,
+  CL: true,
+  CM: true,
+  CO: true,
+  CV: true,
+  CZ: true,
+  DE: true,
+  DK: true,
+  DO: true,
+  EC: true,
+  EE: true,
+  EG: true,
+  ES: true,
+  FI: true,
+  FR: true,
+  GA: true,
+  GB: true,
+  GT: true,
+  HN: true,
+  HR: true,
+  HT: true,
+  HU: true,
+  ID: true,
+  IE: true,
+  IL: true,
+  IN: true,
+  IT: true,
+  JM: true,
+  JO: true,
+  JP: true,
+  KE: true,
+  KH: true,
+  KG: true,
+  KW: true,
+  LB: true,
+  LT: true,
+  LV: true,
+  LY: true,
+  MN: true,
+  MU: true,
+  MX: true,
+  MY: true,
+  MZ: true,
+  NA: true,
+  NE: true,
+  NG: true,
+  NI: true,
+  NL: true,
+  NO: true,
+  NZ: true,
+  OM: true,
+  PE: true,
+  PH: true,
+  PK: true,
+  PL: true,
+  PT: true,
+  PY: true,
+  RO: true,
+  RW: true,
+  SA: true,
+  SN: true,
+  SV: true,
   US: true,
-  UK: true,
 };
 
 const DEFAULT_CHART_OPTIONS: Omit<GoogleLineChartConfig, 'data'> = {
@@ -31,12 +109,17 @@ const DEFAULT_CHART_OPTIONS: Omit<GoogleLineChartConfig, 'data'> = {
 //#endregion Constants
 
 let data: GchartsDataSet | undefined;
+// Country & Subdivision Dropdown elements
 let countrySelect: MDCSelect | null | undefined;
 let divisionSelect: MDCSelect | null | undefined;
+// Options to populate the dropdowns
 let countryCodes: Code[] = [];
 let divisionCodes: Code[] = [];
+// currently selected option
 let selectedCountry: Code | undefined;
+// tracker for toggling display of variables in chart
 const checkboxes: { [id: string]: boolean } = {
+  // date_stamp required for charting, can never be toggled false
   date_stamp: true,
   retail_recreation_pct: true,
   grocery_pharmacy_pct: true,
@@ -45,7 +128,7 @@ const checkboxes: { [id: string]: boolean } = {
   workplace_pct: true,
   residential_pct: true,
 };
-
+// Initialize & listen for checkbox changes
 const checkboxItems = CheckboxUtil.initializeCheckboxes('.checkbox-section');
 // Re-render the chart when a checkbox is toggled
 checkboxItems.forEach((c) => {
@@ -56,7 +139,7 @@ checkboxItems.forEach((c) => {
     }
   });
 });
-
+// Retrieve the data, then initialize the dropdowns & render the chart
 HttpUtil.get<Code[]>(
   'https://covid19.richdataservices.com/rds/api/catalog/int/google_mobility_country/classification/iso3166_1/codes'
 ).then((res) => {
@@ -74,20 +157,20 @@ HttpUtil.get<Code[]>(
       // tslint:disable-next-line:no-non-null-assertion
       selectedCountry = countryCodes[countrySelect!.selectedIndex];
 
-      if (countriesWithDivision[selectedCountry.codeValue]) {
-        handleCountrySelection(selectedCountry);
-      } else {
+      if (divisionSelect) {
+        divisionSelect.value = '';
         SelectUtil.clearSelectOptions('.division-select');
-        if (divisionSelect) {
-          divisionSelect.value = '';
-        }
       }
-      countriesDataProduct.tabulate<GchartsDataSet>(generateTabulateParams(selectedCountry)).then((response) => {
-        if (response.parsedBody) {
-          data = response.parsedBody;
-          renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
-        }
-      });
+
+      if (!!selectedCountry) {
+        handleCountrySelection(selectedCountry);
+        countriesDataProduct.tabulate<GchartsDataSet>(generateTabulateParams(['iso3166_1', selectedCountry])).then((response) => {
+          if (response.parsedBody) {
+            data = response.parsedBody;
+            renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
+          }
+        });
+      }
     });
     const usCodeIndex = countryCodes.findIndex((c) => c.codeValue === 'US');
     if (usCodeIndex >= 0) {
@@ -101,21 +184,19 @@ HttpUtil.get<Code[]>(
       // We've already established divisionSelect is not null
       // tslint:disable-next-line:no-non-null-assertion
       const selectedDivision = divisionCodes[divisionSelect!.selectedIndex];
-      if (!!selectedCountry) {
-        countriesDataProduct
-          .tabulate<GchartsDataSet>(generateTabulateParams(selectedCountry, ['iso3166_2', selectedDivision]))
-          .then((response) => {
-            if (response.parsedBody) {
-              renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
-            }
-          });
+      if (!!selectedDivision) {
+        countriesDataProduct.tabulate<GchartsDataSet>(generateTabulateParams(['iso3166_2', selectedDivision])).then((response) => {
+          if (response.parsedBody) {
+            renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
+          }
+        });
       }
     });
   }
 });
 
 function handleCountrySelection(country: Code) {
-  if (!!divisionSelect) {
+  if (!!divisionSelect && !!country) {
     countriesDataProduct
       .tabulate<{ records: any[] }>({
         dims: 'iso3166_2',
@@ -127,11 +208,25 @@ function handleCountrySelection(country: Code) {
         if (res.parsedBody) {
           const codes = findUniqueCodes(res.parsedBody);
           divisionCodes = codes;
-          SelectUtil.addSelectOptions(
-            '.division-select',
-            codes.map((c) => ({ name: c.name || '', value: c.codeValue }))
-          );
+          showHideDivisionSelect(!!codes.length);
+          if (codes.length) {
+            SelectUtil.addSelectOptions(
+              '.division-select',
+              codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' }))
+            );
+          }
         }
       });
+  }
+}
+
+function showHideDivisionSelect(hasCodes: boolean) {
+  const select = document.querySelector('.division-select');
+  if (select) {
+    if (hasCodes && select.classList.contains('display-none')) {
+      select.classList.remove('display-none');
+    } else if (!select.classList.contains('display-none')) {
+      select.classList.add('display-none');
+    }
   }
 }

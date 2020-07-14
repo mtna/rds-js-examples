@@ -8,7 +8,6 @@ export class GoogleChartLineUtil {
     if (!config.data) {
       return;
     }
-    console.log('Config Data', config.data);
     const existingChart = this.registry[config.elementId];
     const lineChartDiv = document.getElementById(config.elementId);
 

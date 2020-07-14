@@ -42,18 +42,13 @@ export function isPresent<T>(obj: T | undefined | null): obj is T {
   return obj !== undefined && obj !== null;
 }
 
-export function generateTabulateParams(selectedCountry: Code, ...subSelects: ([string, Code] | undefined)[]): RdsTabulateParameters {
-  let where = `(iso3166_1=${selectedCountry.codeValue})`;
-  if (subSelects.length) {
-    subSelects.filter(isPresent).forEach((s) => (where += `AND(${s[0]}=${s[1].codeValue})`));
-  }
-
+export function generateTabulateParams(selected: [string, Code]): RdsTabulateParameters {
   const tabParams: RdsTabulateParameters = {
     dims: 'date_stamp',
     format: 'gcharts',
     limit: 500,
     metadata: true,
-    where,
+    where: `(${selected[0]}=${selected[1].codeValue})`,
     measure: `retail_recreation_pct:AVG(retail_recreation_pct),grocery_pharmacy_pct:AVG(grocery_pharmacy_pct),parks_pct:AVG(parks_pct),transit_station_pct:AVG(transit_station_pct),workplace_pct:AVG(workplace_pct),residential_pct:AVG(residential_pct)`,
     orderby: 'date_stamp',
   };
