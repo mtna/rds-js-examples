@@ -17,12 +17,16 @@
 @use "@material/menu/mdc-menu";
 @use "@material/select/mdc-select";
 
+.chart-container,
+.info-container {
+  margin-top: 64px;
+  padding: 0 32px;
+}
+
 .chart-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   min-height: 500px;
-  padding: 0 32px;
 
   > div {
     margin: 8px;
@@ -62,4 +66,33 @@
   background: colors.$gradient-blue, colors.$color-rds-blue-2;
   border: none;
   margin: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mdc-typography--caption {
+  text-align:right;
+  margin: 0;
+  padding: 0 32px;
+}
+
+.rds-hero {
+  font-weight: 300;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .container{
+    justify-content: center;
+     .header {
+    text-align: center;
+    width: 100%;
+
+    .mdc-typography--headline2 {
+      margin-bottom: 64px;
+    }
+  }}
 }

@@ -6,12 +6,12 @@ import { GoogleChartLineUtil } from '~shared/gcharts/line-chart.util';
 
 const VARIABLE_LABELS: { [id: string]: string } = {
   date_stamp: 'Datestamp',
-  retail_recreation_pct: 'Retail and Recreation Change',
-  grocery_pharmacy_pct: 'Grocery and Pharmacy Change',
-  parks_pct: 'Parks Change',
-  transit_station_pct: 'Transit Stations Change',
-  workplace_pct: 'Workplace Change',
-  residential_pct: 'Residential Change',
+  retail_recreation_pct: 'Retail and Recreation',
+  grocery_pharmacy_pct: 'Grocery and Pharmacy',
+  parks_pct: 'Parks',
+  transit_station_pct: 'Transit Stations',
+  workplace_pct: 'Workplace',
+  residential_pct: 'Residential',
 };
 
 export function convertDateColumnTypeToDate(data: GchartsDataSet): GchartsDataSet {

@@ -25,31 +25,7 @@ export class CheckboxUtil {
         container.querySelector('.mdc-form-field.resident') as Element,
       ];
 
-      // fields.forEach((e, i) => {
-      //   container.appendChild(e);
-      //   const field = new MDCFormField(e);
-      //   field.input = boxes[i];
-      // });
-      // const retailField = new MDCFormField(retailElement);
-      // const groceryField = new MDCFormField(groceryElement);
-      // const parksField = new MDCFormField(parksElement);
-      // const transitField = new MDCFormField(transitElement);
-      // const workField = new MDCFormField(workElement);
-      // const residentField = new MDCFormField(residentElement);
-
-      // retailField.input = retailBox;
-      // groceryField.input = groceryBox;
-      // parksField.input = parksBox;
-      // transitField.input = transitBox;
-      // workField.input = workBox;
-      // residentField.input = residentBox;
-
-      // const nodes = [retailField, groceryField, parksField, transitField, workField, residentField];
-      // for (const node of nodes) {
-      //   container.appendChild(node);
-      // }
       return boxes.map((b, i) => {
-        // container.appendChild(f);
         const field = new MDCFormField(fields[i]);
         field.input = b;
         b.checked = true;

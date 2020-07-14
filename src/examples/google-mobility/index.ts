@@ -20,11 +20,8 @@ const countriesWithDivision: { [code: string]: boolean } = {
 };
 
 const DEFAULT_CHART_OPTIONS: Omit<GoogleLineChartConfig, 'data'> = {
-  // legend: { position: 'bottom' },
   elementId: 'line-chart-div-r-r',
-  title: 'Industry Changes',
-  width: 800,
-  height: 500,
+  title: 'Movement Changes',
   curveType: 'function',
   explorer: { actions: ['dragToZoom', 'rightClickToReset'], axis: 'horizontal', keepInBounds: true, maxZoomOut: 1, maxZoomIn: 0.1 },
   hAxis: { format: 'dd MMM', slantedText: true },
@@ -72,16 +69,13 @@ HttpUtil.get<Code[]>(
   );
   divisionSelect = SelectUtil.initializeSelect('.division-select');
   if (!!countrySelect) {
-    // countrySelect.value = countryCodes[0].uri!;
     countrySelect.listen('MDCSelect:change', () => {
       // We've already established that countrySelect is not null
       // tslint:disable-next-line:no-non-null-assertion
       selectedCountry = countryCodes[countrySelect!.selectedIndex];
 
       if (countriesWithDivision[selectedCountry.codeValue]) {
-        console.log('Data', data);
         handleCountrySelection(selectedCountry);
-        // countriesDataProduct.tabulate<GchartsDataSet>(generate)
       } else {
         SelectUtil.clearSelectOptions('.division-select');
         if (divisionSelect) {
@@ -99,7 +93,6 @@ HttpUtil.get<Code[]>(
     if (usCodeIndex >= 0) {
       countrySelect.selectedIndex = usCodeIndex;
       countrySelect.emit('change', {});
-      // countriesDataProduct.tabulate<GchartsDataSet>()
     }
   }
 
@@ -131,7 +124,6 @@ function handleCountrySelection(country: Code) {
         inject: true,
       })
       .then((res) => {
-        // renderChart(res.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
         if (res.parsedBody) {
           const codes = findUniqueCodes(res.parsedBody);
           divisionCodes = codes;

@@ -10,28 +10,25 @@
     <main>
       <div class="rds-hero" id="home">
         <div class="container mdc-layout-grid">
-          <div class="text">
-            <h2 class="mdc-typography--headline4">
-              Google Mobility
-            </h2>
+          <div class="header">
+            <h1 class="mdc-typography--headline1">
+              See how community movement is impacted by COVID-19.
+            </h1>
             <a class="rds-button-flat-white" href="https://www.richdataservices.com" target="_blank">
               <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>What is RDS?
             </a>
           </div>
-          <div class="image">
-            <img src="./assets/sample-code.png" alt="Example of API code using the RDS API" />
-          </div>
         </div>
       </div>
 
-      <div class="chart-container">
+      <!-- <hr class="section-divider" style="margin-top: 64px;" /> -->
 
+      <div class="chart-container">
         <div class="control-section">
-          <h4 class="mdc-typography--headline4 text-blue">Industry changes by location</h4>
+          <h4 class="mdc-typography--headline4 text-blue">Changes by location</h4>
           <p class="mat-typography--body1">
-            The Community Mobility Reports reflect the changes in response to policies aimed at combating COVID-19. The reports chart movements
-            over time by geography, and across different places such as retail and recreation, groceries and pharmacies, parks, transit stations, workplaces,
-            and residential.
+            Each report dataset is presented by location and highlights the percent change in visits to places like
+            grocery stores and parks within a geographic area.
           </p>
           <!-- COUNTRY SELECT -->
           <div class="mdc-select country-select">
@@ -71,6 +68,16 @@
 
         <!-- LINE CHART -->
         <div id="line-chart-div-r-r" class="chart-div"></div>
+      </div>
+      <p class="mdc-typography--caption">*Try dragging the chart to zoom in. Reset by using the right-click.</p>
+
+      <div class="info-container">
+        <h4 class="mdc-typography--headline3 text-blue text-center">What is a Mobility Report?</h4>
+        <p class="mat-typography--body1 text-center">
+          The Community Mobility Reports reflect the changes in response to policies aimed at combating COVID-19. The reports chart
+          movements over time by geography, and across different places such as retail and recreation, groceries and pharmacies, parks,
+          transit stations, workplaces, and residential.
+        </p>
       </div>
       <hr class="section-divider" style="margin-top: 64px;" />
       <include src="src/shared/_need-help.html"></include>
