@@ -1,8 +1,9 @@
 import { Datum, Record } from '@mtna/data-core-ui';
 import { Code } from '@mtna/pojo-consumer-ui';
-import { GchartsDataSet, RdsTabulateParameters } from '@rds/sdk';
+import { GchartsDataSet, RdsDataProduct, RdsTabulateParameters } from '@rds/sdk';
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
 import { GoogleChartLineUtil } from '~shared/gcharts/line-chart.util';
+import { SelectUtil } from '~shared/material/select.util';
 
 const VARIABLE_LABELS: { [id: string]: string } = {
   date_stamp: 'Datestamp',
@@ -88,4 +89,38 @@ export function findUniqueCodes(dataSet: { records: Record[] }): Code[] {
 function convertColumnLabels(data: GchartsDataSet): GchartsDataSet {
   const cols = data.cols.map((c) => ({ ...c, label: VARIABLE_LABELS[c.id || ''] }));
   return { ...data, cols };
+}
+
+export function handleCountrySelection(country: Code, dp: RdsDataProduct, divisionSelectExists: boolean, codes: Code[]) {
+  if (divisionSelectExists && !!country) {
+    dp.tabulate<{ records: any[] }>({
+      dims: 'iso3166_2',
+      where: `iso3166_1=${country.codeValue}`,
+      format: 'mtna',
+      inject: true,
+    }).then((res) => {
+      if (res.parsedBody) {
+        const newCodes = findUniqueCodes(res.parsedBody);
+        codes = newCodes;
+        showHideDivisionSelect(!!newCodes.length);
+        if (codes.length) {
+          SelectUtil.addSelectOptions(
+            '.division-select',
+            codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' }))
+          );
+        }
+      }
+    });
+  }
+}
+
+export function showHideDivisionSelect(hasCodes: boolean) {
+  const select = document.querySelector('.division-select');
+  if (select) {
+    if (hasCodes) {
+      select.classList.remove('display-none');
+    } else {
+      select.classList.add('display-none');
+    }
+  }
 }

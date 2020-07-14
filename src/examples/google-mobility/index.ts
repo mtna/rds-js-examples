@@ -4,7 +4,7 @@ import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer } from 
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
 import { SelectUtil } from '~shared/material/select.util';
 
-import { findUniqueCodes, generateTabulateParams, renderChart } from './functions';
+import { generateTabulateParams, handleCountrySelection, renderChart } from './functions';
 import { CheckboxUtil } from './util/checkbox-util';
 
 //#region Constants
@@ -81,7 +81,7 @@ HttpUtil.get<Code[]>(
       }
 
       if (!!selectedCountry) {
-        handleCountrySelection(selectedCountry);
+        handleCountrySelection(selectedCountry, countriesDataProduct, !!divisionSelect, divisionCodes);
         countriesDataProduct.tabulate<GchartsDataSet>(generateTabulateParams(['iso3166_1', selectedCountry])).then((response) => {
           if (response.parsedBody) {
             data = response.parsedBody;
@@ -112,39 +112,3 @@ HttpUtil.get<Code[]>(
     });
   }
 });
-
-function handleCountrySelection(country: Code) {
-  if (!!divisionSelect && !!country) {
-    countriesDataProduct
-      .tabulate<{ records: any[] }>({
-        dims: 'iso3166_2',
-        where: `iso3166_1=${country.codeValue}`,
-        format: 'mtna',
-        inject: true,
-      })
-      .then((res) => {
-        if (res.parsedBody) {
-          const codes = findUniqueCodes(res.parsedBody);
-          divisionCodes = codes;
-          showHideDivisionSelect(!!codes.length);
-          if (codes.length) {
-            SelectUtil.addSelectOptions(
-              '.division-select',
-              codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' }))
-            );
-          }
-        }
-      });
-  }
-}
-
-function showHideDivisionSelect(hasCodes: boolean) {
-  const select = document.querySelector('.division-select');
-  if (select) {
-    if (hasCodes && select.classList.contains('display-none')) {
-      select.classList.remove('display-none');
-    } else if (!select.classList.contains('display-none')) {
-      select.classList.add('display-none');
-    }
-  }
-}
