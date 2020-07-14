@@ -19,7 +19,9 @@ export class GoogleChartLineUtil {
     if (lineChartDiv) {
       const data = google.visualization.arrayToDataTable([config.data.cols, ...config.data.rows], false);
       const lineChart = new google.visualization.LineChart(lineChartDiv);
-      lineChart.draw(data, { title: config.chartTitle });
+      // lineChart.draw(data, { title: config.chartTitle });
+      const options: Extract<typeof config, google.visualization.LineChartOptions> = { ...config };
+      lineChart.draw(data, options);
     }
   }
 

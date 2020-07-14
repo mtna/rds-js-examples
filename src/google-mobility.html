@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <include src="src/shared/_meta.html"></include>
+    <title>Google Mobility RDS</title>
+    <link rel="stylesheet" href="./examples/google-mobility/styles/page.scss" />
+  </head>
+
+  <body class="mdc-typography">
+    <main>
+      <div class="rds-hero" id="home">
+        <div class="container mdc-layout-grid">
+          <div class="header">
+            <h1 class="mdc-typography--headline1">
+              See how community movement is impacted by COVID-19.
+            </h1>
+            <a class="rds-button-flat-white" href="https://www.richdataservices.com" target="_blank">
+              <i class="material-icons mdc-button__icon" aria-hidden="true">open_in_new</i>What is RDS?
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="chart-container">
+        <div class="control-section">
+          <h4 class="mdc-typography--headline4 text-blue">Changes by location</h4>
+          <p class="mat-typography--body1">
+            Each report dataset is presented by location and highlights the percent change in visits to places like
+            grocery stores and parks within a geographic area.
+          </p>
+          <!-- COUNTRY SELECT -->
+          <div class="mdc-select country-select">
+            <div class="mdc-select__anchor">
+              <span class="mdc-select__ripple"></span>
+              <input type="text" disabled readonly class="mdc-select__selected-text" />
+              <i class="mdc-select__dropdown-icon"></i>
+              <span class="mdc-floating-label mdc-floating-label--float-above">Country</span>
+              <span class="mdc-line-ripple"></span>
+            </div>
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-list">
+                <!-- COUNTRY OPTIONS DYNAMICALLY PLACED HERE -->
+              </ul>
+            </div>
+          </div>
+          <!-- DIVISION SELECT -->
+          <div class="mdc-select division-select display-none">
+            <div class="mdc-select__anchor">
+              <span class="mdc-select__ripple"></span>
+              <input type="text" disabled readonly class="mdc-select__selected-text" />
+              <i class="mdc-select__dropdown-icon"></i>
+              <span class="mdc-floating-label mdc-floating-label--float-above">Subdivision</span>
+              <span class="mdc-line-ripple"></span>
+            </div>
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-list">
+                <!-- DIVISION OPTIONS DYNAMICALLY PLACED HERE -->
+              </ul>
+            </div>
+          </div>
+
+          <div class="checkbox-section">
+            <include src="src/examples/google-mobility/_checkboxes.html"></include>
+          </div>
+        </div>
+
+        <!-- LINE CHART -->
+        <div id="line-chart-div-r-r" class="chart-div"></div>
+      </div>
+      <p class="mdc-typography--caption">*Try dragging the chart to zoom in. Reset by using the right-click.</p>
+
+      <div class="info-container">
+        <h4 class="mdc-typography--headline3 text-center">What is a Mobility Report?</h4>
+        <p class="mat-typography--body1 text-center">
+          The Community Mobility Reports reflect the changes in response to policies aimed at combating COVID-19. The reports chart
+          movements over time by geography, and across different places such as retail and recreation, groceries and pharmacies, parks,
+          transit stations, workplaces, and residential.
+        </p>
+      </div>
+
+      <include src="src/shared/_need-help.html"></include>
+    </main>
+    <include src="src/shared/_footer.html"></include>
+    <!-- May or may not need these depending on the charting library used -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      google.charts.load('current', { packages: ['corechart'] });
+    </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="./examples/google-mobility/index.ts"></script>
+  </body>
+</html>
