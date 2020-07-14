@@ -101,7 +101,8 @@ export function handleCountrySelection(country: Code, dp: RdsDataProduct, divisi
     }).then((res) => {
       if (res.parsedBody) {
         const newCodes = findUniqueCodes(res.parsedBody);
-        codes = newCodes;
+        codes.splice(0);
+        codes.push(...newCodes);
         showHideDivisionSelect(!!newCodes.length);
         if (codes.length) {
           SelectUtil.addSelectOptions(

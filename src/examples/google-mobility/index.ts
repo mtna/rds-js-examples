@@ -32,7 +32,7 @@ let countrySelect: MDCSelect | null | undefined;
 let divisionSelect: MDCSelect | null | undefined;
 // Options to populate the dropdowns
 let countryCodes: Code[] = [];
-let divisionCodes: Code[] = [];
+const divisionCodes: Code[] = [];
 // currently selected option
 let selectedCountry: Code | undefined;
 // tracker for toggling display of variables in chart
