@@ -17,13 +17,17 @@
 @use "@material/menu/mdc-menu";
 @use "@material/select/mdc-select";
 
+.data-analysis-section,
 .info-container {
   margin-top: 64px;
   padding: 0 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 250px;
+  min-height: 350px;
+}
+
+.info-container {
   background-image: url('~/assets/cta-background-opaque-0.1.png'), url('~/assets/cta-background-opaque-0.1.png'), colors.$gradient-blue;
   background-repeat: no-repeat;
   background-position: bottom -200px left -300px, top -200px right -300px, top left;
