@@ -17,7 +17,6 @@
 @use "@material/menu/mdc-menu";
 @use "@material/select/mdc-select";
 
-
 .info-container {
   margin-top: 64px;
   padding: 0 32px;
@@ -82,8 +81,8 @@
   text-align: center;
 }
 
-.mdc-typography--caption {
-  text-align:right;
+.mdc-typography--caption:not(.banner-footnote) {
+  text-align: right;
   margin: 0;
   padding: 0 32px;
 }
@@ -95,16 +94,35 @@
   flex-direction: column;
   justify-content: center;
 
-  .container{
+  .container {
     justify-content: center;
-     .header {
-    text-align: center;
-    width: 100%;
+    .header {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
 
-    .mdc-typography--headline2 {
-      margin-bottom: 64px;
+      .google-logo {
+        width: 100px;
+      }
+      .mdc-typography--headline1 {
+        margin: 32px 0;
+      }
+      .app-logo {
+        width: 100%;
+        margin-top: 23px;
+      }
+      .brand-logo {
+        width: 160px;
+      }
+
+      a {
+        margin-top: 23px;
+      }
     }
-  }}
+  }
 }
 
 .display-none {
