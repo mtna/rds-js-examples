@@ -125,3 +125,20 @@ export function showHideDivisionSelect(hasCodes: boolean) {
     }
   }
 }
+
+export function generateTableViewLink(params: RdsTabulateParameters) {
+  const url = `https://covid19.richdataservices.com/rds-tabengine/analysis/int/google_mobility/custom-tables;showTotals=true,true,true,true;sortRows=NATURAL,ASC;sortCols=NATURAL,ASC;filterEmpty=true?${serializeParameters(
+    params
+  )}`;
+  return url;
+}
+
+export function generateDataViewLink(params: RdsTabulateParameters) {
+  const url = `https://covid19.richdataservices.com/rds-explorer/explore/int/google_mobility/data?collimit=25&count=true&limit=25`;
+  return !!params.where ? url + `&where=${encodeURIComponent(params.where)}` : url;
+}
+
+export function serializeParameters(params: RdsTabulateParameters) {
+  const url = `rows=date_stamp&measure=COUNT:COUNT(*)`;
+  return !!params.where ? url + `&where=${encodeURIComponent(params.where)}` : url;
+}
