@@ -89,15 +89,47 @@
       <p class="mdc-typography--caption">*Try dragging the chart to zoom in. Reset by using the right-click.</p>
 
       <div class="info-container">
-        <h4 class="mdc-typography--headline3 text-center">What is a Mobility Report?</h4>
+        <h4 class="mdc-typography--headline3 text-center">What are Google COVID-19 Mobility Reports?</h4>
         <p class="mat-typography--body1 text-center">
-          The Community Mobility Reports reflect the changes in response to policies aimed at combating COVID-19. The reports chart
-          movements over time by geography, and across different places such as retail and recreation, groceries and pharmacies, parks,
-          transit stations, workplaces, and residential.
+          The Google COVID-19
+          <a class="text-white" target="_blank" href="https://www.google.com/covid19/mobility">Community Mobility Reports</a>
+          aim to provide insights into what has changed in response to policies aimed at combating COVID-19. The reports chart movement
+          trends over time by geography, across different categories of places such as retail and recreation, groceries and pharmacies,
+          parks, transit stations, workplaces, and residential. The anonymized data is regularly released by Google and made available in
+          CSV text format, along with PDF reports published by countries.
         </p>
       </div>
 
-      <include src="src/shared/_need-help.html"></include>
+      <section class="data-analysis-section">
+        <h4 class="mdc-typography--headline3 text-center text-blue">How did we do this?</h4>
+        <p class="mdc-typography--body1 text-center">
+          This website was put together in a matter of hours by integrating with our
+          <a target="_blank" href="https://www.richdataservices.com/">Rich Data Services API</a>, leveraging our
+          <a target="_blank" href="https://github.com/mtna/rds-js">RDS open source JavaScript library</a> and
+          <a target="_blank" href="https://developers.google.com/chart">Google charts</a>. We collect the raw data from the CSV file
+          published on the <a target="_blank" href="https://www.google.com/covid19/mobility/">Google Community Report</a> site and load in
+          SQL database server. We then create multiple "views" to enhance as necessary and offer derived datasets for user convenience (e.g.
+          global, by country, by administrative subdivision). We complement the data with descriptive metadata / documentation around the
+          variables, codes lists, and other resources to deliver high quality data products. The record level data can be explored under our
+          International, Canada, and United States catalog in our public
+          <a target="_blank" href="http://covid19.richdataservices.com/rds-explorer">COVID-19 repository</a>. Tables can also generated
+          using the <a target="_blank" href="https://covid19.richdataservices.com/rds-tabengine">RDS TabEngine</a>. The data can also be
+          used by anyone through the underlying RDS API.
+        </p>
+      </section>
+
+      <div class="rds-need-help-container text-grey">
+        <div class="question">
+          <include src="src/svg/_need-help.html"></include>
+          <p><strong>Do you have similar needs?</strong></p>
+        </div>
+        <div class="call-to-action">
+          Do you have data to publish? <br />
+          Would you like to learn more about Rich Data Services?<br /><a href="https://www.richdataservices.com/contact" target="_blank"
+            >Get In Touch.</a
+          >
+        </div>
+      </div>
     </main>
     <include src="src/shared/_footer.html"></include>
     <!-- May or may not need these depending on the charting library used -->
