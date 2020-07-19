@@ -57,10 +57,16 @@ export function generateTabulateParams(selected: [string, Code]): RdsTabulatePar
   return tabParams;
 }
 
-export function renderChart(data: GchartsDataSet, config: Omit<GoogleLineChartConfig, 'data'>, checkboxes: { [id: string]: boolean } = {}) {
+export function renderChart(
+  data: GchartsDataSet,
+  config: Omit<GoogleLineChartConfig, 'data'>,
+  checkboxes: { [id: string]: boolean } = {},
+  colors: { [id: string]: string } = {}
+) {
   const chartConfig: GoogleLineChartConfig = {
     ...config,
     data: convertColumnLabels(filterUnchecked(convertDateColumnTypeToDate(data), checkboxes)),
+    colors: filterColors(colors, checkboxes),
   };
   if (data) {
     GoogleChartLineUtil.createChart(chartConfig);
@@ -129,4 +135,17 @@ export function showHideDivisionSelect(hasCodes: boolean) {
 export function generateDataViewLink(params: RdsTabulateParameters) {
   const url = `https://covid19.richdataservices.com/rds-explorer/explore/int/google_mobility/data?collimit=25&count=true&limit=25`;
   return !!params.where ? url + `&where=${encodeURIComponent(params.where)}` : url;
+}
+
+function filterColors(colors: { [id: string]: string }, checkboxes: { [id: string]: boolean }): string[] | undefined {
+  if (!colors || !checkboxes) {
+    return undefined;
+  }
+  const colorArray = [];
+  for (const id in colors) {
+    if (colors.hasOwnProperty(id) && !!checkboxes[id]) {
+      colorArray.push(colors[id]);
+    }
+  }
+  return colorArray.length ? colorArray : undefined;
 }

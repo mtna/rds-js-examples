@@ -46,6 +46,14 @@ const checkboxes: { [id: string]: boolean } = {
   workplace_pct: true,
   residential_pct: true,
 };
+const colors: { [id: string]: string } = {
+  retail_recreation_pct: '#3366cc',
+  grocery_pharmacy_pct: '#dc3912',
+  parks_pct: '#ff9900',
+  transit_station_pct: '#109618',
+  workplace_pct: '#990099',
+  residential_pct: '#0099c6',
+};
 // Initialize & listen for checkbox changes
 const checkboxItems = CheckboxUtil.initializeCheckboxes('.checkbox-section');
 // Re-render the chart when a checkbox is toggled
@@ -53,7 +61,7 @@ checkboxItems.forEach((c) => {
   c.checkbox.listen('click', () => {
     checkboxes[c.id] = c.checkbox.checked;
     if (data) {
-      renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
+      renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes, colors);
     }
   });
 });
@@ -89,7 +97,7 @@ HttpUtil.get<Code[]>(
           if (response.parsedBody) {
             data = response.parsedBody;
             dataLink.href = generateDataViewLink(params);
-            renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
+            renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes, colors);
           }
         });
       }
@@ -111,7 +119,7 @@ HttpUtil.get<Code[]>(
         countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
           if (response.parsedBody) {
             dataLink.href = generateDataViewLink(params);
-            renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
+            renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes, colors);
           }
         });
       }
