@@ -113,7 +113,7 @@ export function handleCountrySelection(country: Code, dp: RdsDataProduct, divisi
         if (codes.length) {
           SelectUtil.addSelectOptions(
             '.division-select',
-            codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' }))
+            [{ name: 'All', value: '' }].concat(codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' })))
           );
         }
       }

@@ -1,6 +1,6 @@
 import { MDCSelect } from '@material/select';
 import { Code } from '@mtna/pojo-consumer-ui';
-import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer } from '@rds/sdk';
+import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer, RdsTabulateParameters } from '@rds/sdk';
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
 import { SelectUtil } from '~shared/material/select.util';
 
@@ -111,18 +111,26 @@ HttpUtil.get<Code[]>(
 
   if (!!divisionSelect) {
     divisionSelect.listen('MDCSelect:change', () => {
+      let params: RdsTabulateParameters = {};
       // We've already established divisionSelect is not null
       // tslint:disable-next-line:no-non-null-assertion
-      const selectedDivision = divisionCodes[divisionSelect!.selectedIndex];
-      if (!!selectedDivision) {
-        const params = generateTabulateParams(['iso3166_2', selectedDivision]);
-        countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
-          if (response.parsedBody) {
-            dataLink.href = generateDataViewLink(params);
-            renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes, colors);
-          }
-        });
+      if (divisionSelect!.selectedIndex === 0) {
+        // Selected country can't be null here if we have division options
+        // tslint:disable-next-line: no-non-null-assertion
+        params = generateTabulateParams(['iso3166_1', selectedCountry!]);
+      } else {
+        // tslint:disable-next-line:no-non-null-assertion
+        const selectedDivision = divisionCodes[divisionSelect!.selectedIndex - 1];
+        if (!!selectedDivision) {
+          params = generateTabulateParams(['iso3166_2', selectedDivision]);
+        }
       }
+      countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
+        if (response.parsedBody) {
+          dataLink.href = generateDataViewLink(params);
+          renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes, colors);
+        }
+      });
     });
   }
 });
