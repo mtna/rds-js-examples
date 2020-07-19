@@ -4,7 +4,7 @@ import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer } from 
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
 import { SelectUtil } from '~shared/material/select.util';
 
-import { generateDataViewLink, generateTableViewLink, generateTabulateParams, handleCountrySelection, renderChart } from './functions';
+import { generateDataViewLink, generateTabulateParams, handleCountrySelection, renderChart } from './functions';
 import { CheckboxUtil } from './util/checkbox-util';
 
 //#region Constants
@@ -57,8 +57,6 @@ checkboxItems.forEach((c) => {
     }
   });
 });
-// TabEngine link to view the current tabulation
-const tableLink = document.getElementById('view-table-link') as HTMLLinkElement;
 // Explorer link to view the current data
 const dataLink = document.getElementById('view-data-link') as HTMLLinkElement;
 // Retrieve the data, then initialize the dropdowns & render the chart
@@ -90,7 +88,6 @@ HttpUtil.get<Code[]>(
         countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
           if (response.parsedBody) {
             data = response.parsedBody;
-            tableLink.href = generateTableViewLink(params);
             dataLink.href = generateDataViewLink(params);
             renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
           }
@@ -113,7 +110,6 @@ HttpUtil.get<Code[]>(
         const params = generateTabulateParams(['iso3166_2', selectedDivision]);
         countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
           if (response.parsedBody) {
-            tableLink.href = generateTableViewLink(params);
             dataLink.href = generateDataViewLink(params);
             renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
           }
