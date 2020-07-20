@@ -57,10 +57,16 @@ export function generateTabulateParams(selected: [string, Code]): RdsTabulatePar
   return tabParams;
 }
 
-export function renderChart(data: GchartsDataSet, config: Omit<GoogleLineChartConfig, 'data'>, checkboxes: { [id: string]: boolean } = {}) {
+export function renderChart(
+  data: GchartsDataSet,
+  config: Omit<GoogleLineChartConfig, 'data'>,
+  checkboxes: { [id: string]: boolean } = {},
+  colors: { [id: string]: string } = {}
+) {
   const chartConfig: GoogleLineChartConfig = {
     ...config,
     data: convertColumnLabels(filterUnchecked(convertDateColumnTypeToDate(data), checkboxes)),
+    colors: filterColors(colors, checkboxes),
   };
   if (data) {
     GoogleChartLineUtil.createChart(chartConfig);
@@ -107,7 +113,7 @@ export function handleCountrySelection(country: Code, dp: RdsDataProduct, divisi
         if (codes.length) {
           SelectUtil.addSelectOptions(
             '.division-select',
-            codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' }))
+            [{ name: 'All', value: '' }].concat(codes.map((c) => ({ name: c.name || '', value: c.codeValue || '' })))
           );
         }
       }
@@ -126,19 +132,20 @@ export function showHideDivisionSelect(hasCodes: boolean) {
   }
 }
 
-export function generateTableViewLink(params: RdsTabulateParameters) {
-  const url = `https://covid19.richdataservices.com/rds-tabengine/analysis/int/google_mobility/custom-tables;showTotals=true,true,true,true;sortRows=NATURAL,ASC;sortCols=NATURAL,ASC;filterEmpty=true?${serializeParameters(
-    params
-  )}`;
-  return url;
-}
-
 export function generateDataViewLink(params: RdsTabulateParameters) {
   const url = `https://covid19.richdataservices.com/rds-explorer/explore/int/google_mobility/data?collimit=25&count=true&limit=25`;
   return !!params.where ? url + `&where=${encodeURIComponent(params.where)}` : url;
 }
 
-export function serializeParameters(params: RdsTabulateParameters) {
-  const url = `rows=date_stamp&measure=COUNT:COUNT(*)`;
-  return !!params.where ? url + `&where=${encodeURIComponent(params.where)}` : url;
+function filterColors(colors: { [id: string]: string }, checkboxes: { [id: string]: boolean }): string[] | undefined {
+  if (!colors || !checkboxes) {
+    return undefined;
+  }
+  const colorArray = [];
+  for (const id in colors) {
+    if (colors.hasOwnProperty(id) && !!checkboxes[id]) {
+      colorArray.push(colors[id]);
+    }
+  }
+  return colorArray.length ? colorArray : undefined;
 }

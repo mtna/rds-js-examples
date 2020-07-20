@@ -1,10 +1,10 @@
 import { MDCSelect } from '@material/select';
 import { Code } from '@mtna/pojo-consumer-ui';
-import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer } from '@rds/sdk';
+import { GchartsDataSet, HttpUtil, RdsCatalog, RdsDataProduct, RdsServer, RdsTabulateParameters } from '@rds/sdk';
 import { GoogleLineChartConfig } from '~shared/gcharts/gcharts-config';
 import { SelectUtil } from '~shared/material/select.util';
 
-import { generateDataViewLink, generateTableViewLink, generateTabulateParams, handleCountrySelection, renderChart } from './functions';
+import { generateDataViewLink, generateTabulateParams, handleCountrySelection, renderChart } from './functions';
 import { CheckboxUtil } from './util/checkbox-util';
 
 //#region Constants
@@ -46,6 +46,14 @@ const checkboxes: { [id: string]: boolean } = {
   workplace_pct: true,
   residential_pct: true,
 };
+const colors: { [id: string]: string } = {
+  retail_recreation_pct: '#3366cc',
+  grocery_pharmacy_pct: '#dc3912',
+  parks_pct: '#ff9900',
+  transit_station_pct: '#109618',
+  workplace_pct: '#990099',
+  residential_pct: '#0099c6',
+};
 // Initialize & listen for checkbox changes
 const checkboxItems = CheckboxUtil.initializeCheckboxes('.checkbox-section');
 // Re-render the chart when a checkbox is toggled
@@ -53,12 +61,10 @@ checkboxItems.forEach((c) => {
   c.checkbox.listen('click', () => {
     checkboxes[c.id] = c.checkbox.checked;
     if (data) {
-      renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
+      renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes, colors);
     }
   });
 });
-// TabEngine link to view the current tabulation
-const tableLink = document.getElementById('view-table-link') as HTMLLinkElement;
 // Explorer link to view the current data
 const dataLink = document.getElementById('view-data-link') as HTMLLinkElement;
 // Retrieve the data, then initialize the dropdowns & render the chart
@@ -90,9 +96,8 @@ HttpUtil.get<Code[]>(
         countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
           if (response.parsedBody) {
             data = response.parsedBody;
-            tableLink.href = generateTableViewLink(params);
             dataLink.href = generateDataViewLink(params);
-            renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes);
+            renderChart(data, DEFAULT_CHART_OPTIONS, checkboxes, colors);
           }
         });
       }
@@ -106,19 +111,26 @@ HttpUtil.get<Code[]>(
 
   if (!!divisionSelect) {
     divisionSelect.listen('MDCSelect:change', () => {
+      let params: RdsTabulateParameters = {};
       // We've already established divisionSelect is not null
       // tslint:disable-next-line:no-non-null-assertion
-      const selectedDivision = divisionCodes[divisionSelect!.selectedIndex];
-      if (!!selectedDivision) {
-        const params = generateTabulateParams(['iso3166_2', selectedDivision]);
-        countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
-          if (response.parsedBody) {
-            tableLink.href = generateTableViewLink(params);
-            dataLink.href = generateDataViewLink(params);
-            renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes);
-          }
-        });
+      if (divisionSelect!.selectedIndex === 0) {
+        // Selected country can't be null here if we have division options
+        // tslint:disable-next-line: no-non-null-assertion
+        params = generateTabulateParams(['iso3166_1', selectedCountry!]);
+      } else {
+        // tslint:disable-next-line:no-non-null-assertion
+        const selectedDivision = divisionCodes[divisionSelect!.selectedIndex - 1];
+        if (!!selectedDivision) {
+          params = generateTabulateParams(['iso3166_2', selectedDivision]);
+        }
       }
+      countriesDataProduct.tabulate<GchartsDataSet>(params).then((response) => {
+        if (response.parsedBody) {
+          dataLink.href = generateDataViewLink(params);
+          renderChart(response.parsedBody, DEFAULT_CHART_OPTIONS, checkboxes, colors);
+        }
+      });
     });
   }
 });
