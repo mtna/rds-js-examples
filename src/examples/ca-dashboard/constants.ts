@@ -1,5 +1,14 @@
 import { RdsServer, RdsCatalog, RdsDataProduct, RdsTabulateParameters } from '@rds/sdk';
 
+export class LabourData {
+  employed_at_work = 0;
+  employed_absent = 0;
+  unemployed = 0;
+  not_in_lf = 0;
+
+  constructor(public SURVMNTH: string) {}
+}
+
 // Initialize an RDS Server with covid data.
 export const covidServer = new RdsServer('https://covid19.richdataservices.com/rds');
 
@@ -14,7 +23,6 @@ export const basePerspectiveUrl =
 
 export const COVID_TAB_SETUP: RdsTabulateParameters = {
   dims: 'date_stamp',
-  where: '(date_stamp<2020-06-01)',
   measure: 'cnt_confirmed:SUM(cnt_confirmed),cnt_death:SUM(cnt_death),cnt_recovered:SUM(cnt_recovered)',
   metadata: true,
   inject: true,
@@ -45,6 +53,21 @@ export const PERCEIVED_SETUP: RdsTabulateParameters = {
 export const COVID_CHART_ELEMENT_ID = 'covid-chart';
 export const LABOUR_CHART_ELEMENT_ID = 'lfs-chart';
 
+export const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 export const PROVINCES = [
   { value: '10', name: 'Newfoundland and Labrador' },
   { value: '11', name: 'Prince Edward Island' },
@@ -60,15 +83,6 @@ export const PROVINCES = [
   { value: '61', name: 'Northwest Territories' },
   { value: '62', name: 'Nunavut' },
   { value: '99', name: 'Repatriated Travellers' },
-];
-
-// Initialize the data map for the stacked/clustered bar charts
-export const LABOUR_DATA = [
-  { SURVMNTH: 'January', employed_at_work: 0, employed_absent: 0, unemployed: 0, not_in_lf: 0 },
-  { SURVMNTH: 'February', employed_at_work: 0, employed_absent: 0, unemployed: 0, not_in_lf: 0 },
-  { SURVMNTH: 'March', employed_at_work: 0, employed_absent: 0, unemployed: 0, not_in_lf: 0 },
-  { SURVMNTH: 'April', employed_at_work: 0, employed_absent: 0, unemployed: 0, not_in_lf: 0 },
-  { SURVMNTH: 'May', employed_at_work: 0, employed_absent: 0, unemployed: 0, not_in_lf: 0 },
 ];
 
 export const PERSPECTIVES = [
