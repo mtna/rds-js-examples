@@ -12,20 +12,10 @@ import {
 } from '~/shared/amcharts/index';
 import { SelectUtil } from '~/shared/material/select.util';
 
-import {
-  canadaCovid,
-  canadaLabour,
-  canadaPerspective,
-  COVID_TAB_SETUP,
-  COVID_CHART_ELEMENT_ID,
-  LABOUR_CHART_ELEMENT_ID,
-  LabourData,
-  LABOUR_SETUP,
-  MONTH_NAMES,
-  PROVINCES,
-  PERCEIVED_SETUP,
-  PERSPECTIVES,
-} from './constants';
+import { MONTH_NAMES, PROVINCES } from './constants';
+import { LabourData, LABOUR_CHART_ELEMENT_ID, LABOUR_SETUP, canadaLabour } from './labour-constants';
+import { PERSPECTIVES, canadaPerspective, PERCEIVED_SETUP } from './perspective-constants';
+import { COVID_TAB_SETUP, canadaCovid, CovidData, COVID_CHART_ELEMENT_ID } from './covid-constants';
 
 let selectedBar = 'clustered';
 let selectedProvince = 'all';
@@ -196,7 +186,7 @@ function getCovidData(province: string) {
       where,
     })
     .then((res: HttpResponse<AmchartsDataSet>) => {
-      const covidData = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
+      const covidData: CovidData[] = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
 
       currentMonth = MONTH_NAMES[new Date(covidData[covidData.length - 1]['date_stamp']).getMonth()];
 
@@ -206,14 +196,9 @@ function getCovidData(province: string) {
         elementId: COVID_CHART_ELEMENT_ID,
         // Add January and last day of current month to keep same timeline for both charts
         data: [
-          { date_stamp: '2020-01-01', cnt_confirmed: 0, cnt_death: 0, cnt_recovered: 0 },
+          new CovidData('2020-01-01', 0, 0, 0),
           ...covidData,
-          {
-            date_stamp: new Date(new Date().getFullYear(), MONTH_NAMES.indexOf(currentMonth) + 1, 0),
-            cnt_confirmed: null,
-            cnt_death: null,
-            cnt_recovered: null,
-          },
+          new CovidData(new Date(new Date().getFullYear(), MONTH_NAMES.indexOf(currentMonth) + 1, 0).toDateString()),
         ],
         dateName: 'date_stamp',
         lines: [
