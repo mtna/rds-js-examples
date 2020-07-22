@@ -12,22 +12,15 @@ import {
 } from '~/shared/amcharts/index';
 import { SelectUtil } from '~/shared/material/select.util';
 
-import {
-  canadaCovid,
-  canadaLabour,
-  canadaPerspective,
-  COVID_TAB_SETUP,
-  COVID_CHART_ELEMENT_ID,
-  LABOUR_CHART_ELEMENT_ID,
-  LABOUR_DATA,
-  LABOUR_SETUP,
-  PROVINCES,
-  PERCEIVED_SETUP,
-  PERSPECTIVES,
-} from './constants';
+import { MONTH_NAMES, PROVINCES } from './constants';
+import { LabourData, LABOUR_CHART_ELEMENT_ID, LABOUR_SETUP, canadaLabour } from './labour-constants';
+import { PERSPECTIVES, canadaPerspective, PERCEIVED_SETUP } from './perspective-constants';
+import { COVID_TAB_SETUP, canadaCovid, CovidData, COVID_CHART_ELEMENT_ID } from './covid-constants';
 
 let selectedBar = 'clustered';
 let selectedProvince = 'all';
+let currentMonth: string;
+const LABOUR_DATA: LabourData[] = [];
 
 const stackedRadioElement = document.querySelector('.stacked-radio');
 const stackedFormFieldElement = document.querySelector('.stacked-form-field');
@@ -65,8 +58,8 @@ if (clusteredRadioElement && clusteredFormFieldElement) {
 }
 
 // Initialize data
-getLabourData(selectedBar, selectedProvince);
 getCovidData(selectedProvince);
+getLabourData(selectedBar, selectedProvince);
 
 // Initialize perspective data and title
 getPerspectiveData('BH_05', 'perspective-chart-1', 'What is your main source of information to find out about COVID-19?');
@@ -83,8 +76,8 @@ getPerspectiveData('BH_25', 'perspective-chart-3', 'In general, how is your heal
 const provinceSelect = SelectUtil.initializeSelect('.province-select', PROVINCES);
 provinceSelect?.listen('MDCSelect:change', () => {
   selectedProvince = provinceSelect.value;
-  getLabourData(selectedBar, selectedProvince);
   getCovidData(selectedProvince);
+  getLabourData(selectedBar, selectedProvince);
 });
 
 const perspectiveSelect = SelectUtil.initializeSelect('.perspective-select', PERSPECTIVES);
@@ -133,6 +126,10 @@ function getLabourData(barType: string, province: string) {
     .then((res: HttpResponse<AmchartsDataSet>) => {
       // format for the stacked/clustered bar charts
       res?.parsedBody?.dataProvider.forEach((x: { LFSSTAT: string; SURVMNTH: string; COUNT: number }) => {
+        // Initialize a new LabourData when needed
+        if (!LABOUR_DATA.find((y) => y['SURVMNTH'] === x['SURVMNTH'])) {
+          LABOUR_DATA.push(new LabourData(x['SURVMNTH']));
+        }
         switch (x['LFSSTAT']) {
           case 'Employed, at work':
             LABOUR_DATA.map((y) => {
@@ -165,6 +162,12 @@ function getLabourData(barType: string, province: string) {
         }
       });
 
+      // When Covid data is ahead of Labour data, we need to push the latest
+      // covid data month to keep the timelines the same
+      if (!LABOUR_DATA.find((y) => y['SURVMNTH'] === currentMonth)) {
+        LABOUR_DATA.push(new LabourData(currentMonth));
+      }
+
       // Create chart
       populateLabourChart(barType, where);
     });
@@ -183,14 +186,20 @@ function getCovidData(province: string) {
       where,
     })
     .then((res: HttpResponse<AmchartsDataSet>) => {
-      const covidData = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
+      const covidData: CovidData[] = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
+
+      currentMonth = MONTH_NAMES[new Date(covidData[covidData.length - 1]['date_stamp']).getMonth()];
 
       const titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/ca_gov_cases/custom-tables;showTotals=true,true,true,true;sortRows=VALUE,ASC;sortCols=NAME,DESC;filterEmpty=true?rows=date_stamp&where=${where}&measure=cnt_confirmed:SUM(cnt_confirmed)`;
 
       AmChartsLineUtil.createDateLineChart({
         elementId: COVID_CHART_ELEMENT_ID,
-        // Add January data to keep timeline consistent across charts
-        data: [{ date_stamp: '2020-01-01', cnt_confirmed: 0, cnt_death: 0, cnt_recovered: 0 }, ...covidData],
+        // Add January and last day of current month to keep same timeline for both charts
+        data: [
+          new CovidData('2020-01-01', 0, 0, 0),
+          ...covidData,
+          new CovidData(new Date(new Date().getFullYear(), MONTH_NAMES.indexOf(currentMonth) + 1, 0).toDateString()),
+        ],
         dateName: 'date_stamp',
         lines: [
           { name: 'Confirmed Cases', value: 'cnt_confirmed', color: CommonAmChartColors.confirmedColor },
