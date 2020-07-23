@@ -178,20 +178,26 @@ function getLabourData(barType: string, province: string) {
  */
 function getCovidData(province: string) {
   // add province to where when needed
-  const where = province !== 'all' ? COVID_TAB_SETUP.where + `AND(ca_provterr=${province})` : COVID_TAB_SETUP.where;
+  let where: string | null = null;
+  if (province !== 'all') {
+    where = `(ca_provterr=${province})`;
+  }
   canadaCovid
     .tabulate<AmchartsDataSet>({
       ...COVID_TAB_SETUP,
       format: 'amcharts',
-      where,
+      where: where ? where : undefined,
     })
     .then((res: HttpResponse<AmchartsDataSet>) => {
       const covidData: CovidData[] = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
 
       currentMonth = MONTH_NAMES[new Date(covidData[covidData.length - 1]['date_stamp']).getMonth()];
 
-      const titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/ca_gov_cases/custom-tables;showTotals=true,true,true,true;sortRows=VALUE,ASC;sortCols=NAME,DESC;filterEmpty=true?rows=date_stamp&where=${where}&measure=cnt_confirmed:SUM(cnt_confirmed)`;
+      let titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/ca_gov_cases/custom-tables;showTotals=true,true,true,true;sortRows=VALUE,ASC;sortCols=NAME,DESC;filterEmpty=true?rows=date_stamp&measure=cnt_confirmed:SUM(cnt_confirmed)`;
 
+      if (where) {
+        titleUrl += `&where=${where}`;
+      }
       AmChartsLineUtil.createDateLineChart({
         elementId: COVID_CHART_ELEMENT_ID,
         // Add January and last day of current month to keep same timeline for both charts
