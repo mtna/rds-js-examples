@@ -46,7 +46,7 @@
     "prepare": "npm run snyk-protect"
   },
   "dependencies": {
-    "@amcharts/amcharts4": "^4.9.23",
+    "@amcharts/amcharts4": "^4.9.26",
     "@material/button": "^6.0.0",
     "@material/card": "^6.0.0",
     "@material/checkbox": "^7.0.0",
