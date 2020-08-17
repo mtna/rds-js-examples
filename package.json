@@ -67,7 +67,7 @@
     "snyk": "^1.323.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
+    "@commitlint/cli": "^9.0.0",
     "@commitlint/config-conventional": "^7.1.2",
     "@mtna/prettier-config-ui": "^1.0.1",
     "@types/d3-fetch": "^1.1.5",
