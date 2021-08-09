@@ -1,8 +1,6 @@
 import { MDCFormField } from '@material/form-field';
 import { MDCRadio } from '@material/radio';
-
 import { AmchartsDataSet, HttpResponse } from '@rds/sdk';
-
 import {
   AmChartsClusteredBarUtil,
   AmChartsLineUtil,
@@ -13,9 +11,9 @@ import {
 import { SelectUtil } from '~/shared/material/select.util';
 
 import { MONTH_NAMES, PROVINCES } from './constants';
-import { LabourData, LABOUR_CHART_ELEMENT_ID, LABOUR_SETUP, canadaLabour } from './labour-constants';
-import { PERSPECTIVES, canadaPerspective, PERCEIVED_SETUP } from './perspective-constants';
-import { COVID_TAB_SETUP, canadaCovid, CovidData, COVID_CHART_ELEMENT_ID } from './covid-constants';
+import { canadaCovid, COVID_CHART_ELEMENT_ID, COVID_TAB_SETUP, CovidData } from './covid-constants';
+import { canadaLabour, LABOUR_CHART_ELEMENT_ID, LABOUR_SETUP, LabourData } from './labour-constants';
+import { canadaPerspective, PERCEIVED_SETUP, PERSPECTIVES } from './perspective-constants';
 
 let selectedBar = 'clustered';
 let selectedProvince = 'all';
@@ -191,7 +189,8 @@ function getCovidData(province: string) {
     .then((res: HttpResponse<AmchartsDataSet>) => {
       const covidData: CovidData[] = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
 
-      currentMonth = MONTH_NAMES[new Date(covidData[covidData.length - 1]['date_stamp']).getMonth()];
+      const monthIndex = covidData.length ? new Date(covidData[covidData.length - 1]['date_stamp']).getMonth() : 0;
+      currentMonth = MONTH_NAMES[monthIndex];
 
       let titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/ca_gov_cases/custom-tables;showTotals=true,true,true,true;sortRows=VALUE,ASC;sortCols=NAME,DESC;filterEmpty=true?rows=date_stamp&measure=cnt_confirmed:SUM(cnt_confirmed)`;
 

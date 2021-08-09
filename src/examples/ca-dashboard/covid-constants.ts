@@ -1,4 +1,5 @@
-import { RdsTabulateParameters, RdsDataProduct } from '@rds/sdk';
+import { RdsDataProduct, RdsTabulateParameters } from '@rds/sdk';
+
 import { canadaCatalog } from './constants';
 
 export class CovidData {
@@ -17,6 +18,7 @@ export const COVID_TAB_SETUP: RdsTabulateParameters = {
   measure: 'cnt_confirmed:SUM(cnt_confirmed),cnt_death:SUM(cnt_death),cnt_recovered:SUM(cnt_recovered)',
   metadata: true,
   inject: true,
+  orderby: 'date_stamp ASC'
 };
 
 /** ID of the element to embed the chart to show aggregated data */
