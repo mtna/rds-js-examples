@@ -189,7 +189,7 @@ function getCovidData(province: string) {
     .then((res: HttpResponse<AmchartsDataSet>) => {
       const covidData: CovidData[] = res && res.parsedBody ? res?.parsedBody?.dataProvider : [];
 
-      const monthIndex = covidData.length ? new Date(covidData[covidData.length - 1]['date_stamp']).getMonth(): 0;
+      const monthIndex = covidData.length ? new Date(covidData[covidData.length - 1]['date_stamp']).getMonth() : 0;
       currentMonth = MONTH_NAMES[monthIndex];
 
       let titleUrl = `https://covid19.richdataservices.com/rds-tabengine/analysis/ca/ca_gov_cases/custom-tables;showTotals=true,true,true,true;sortRows=VALUE,ASC;sortCols=NAME,DESC;filterEmpty=true?rows=date_stamp&measure=cnt_confirmed:SUM(cnt_confirmed)`;
