@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
+version: v1.25.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -10716,3 +10716,7 @@ patch:
         patched: '2020-11-25T13:12:29.645Z'
     - '@rds/sdk > snyk > snyk-python-plugin > snyk-poetry-lockfile-parser > @snyk/cli-interface > @snyk/dep-graph > graphlib > lodash':
         patched: '2020-11-25T13:12:29.645Z'
+    - commitizen > cz-conventional-changelog > @commitlint/load > lodash:
+        patched: '2022-10-08T14:09:48.179Z'
+    - commitizen > cz-conventional-changelog > @commitlint/load > @commitlint/resolve-extends > lodash:
+        patched: '2022-10-08T14:09:48.179Z'
